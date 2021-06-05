@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import { Feather } from '@expo/vector-icons'; 
 
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons,AntDesign } from '@expo/vector-icons';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -32,6 +32,8 @@ import moment from 'moment';
 import { Font } from 'expo-font';
 
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
+
+
 
 
 
@@ -188,13 +190,13 @@ class ObjectsScreen extends Component {
     const copy = [];
     const copyFeatured = [];
     this.state.dataSource.forEach(element => {
-      if (element.featured) {
+      
         copyFeatured.push(element);
-      } else {
-        copy.push(element);
-      }
+     
+     
     });
-    const groupedData = GridRow.groupByRows(copy, 2);
+    const groupedData = copy
+  ;
 
     this.setState(previousState => ({
       el1: data,
@@ -227,8 +229,9 @@ class ObjectsScreen extends Component {
     if (!this.state.fontLoaded) {
       return <View />
     }
-    return (
-      <ScrollView backgroundColor="#ffffff" showsVerticalScrollIndicator={false}
+    return (<View style={{flex:1}}>
+ 
+      <ScrollView backgroundColor="#ffffff" showsVerticalScrollIndicator={false}style={{flex:1}}
         refreshControl={
           <RefreshControl
             colors={["#0C8BB2", "#0C8BB2", "#0C8BB2"]}
@@ -236,7 +239,8 @@ class ObjectsScreen extends Component {
             onRefresh={this._onRefresh}
           />
         }
-      >
+      >      
+    
         <View style={styles.cardContainer}>
           <Dialog style={{ marginLeft: 16, marginRight: 16 }}
             visible={this.state.visibleLocation}
@@ -349,102 +353,12 @@ class ObjectsScreen extends Component {
             renderItem={this.renderFeatured}
           ></FlatList>
         </ScrollView>
-        <FlatList
-          keyExtractor={item =>
-            item.id
-          }
-          style={{ backgroundColor: "#ffffff", display: "flex",flexDirection: "column"}}
-          data={groupedData}
-          renderItem={this.renderRowOne}
-        >
-        </FlatList>
+
       </ScrollView>
-    );
-  }
-  renderRowOne = rowData => {
-    const cellViews = rowData.item.map(item => {
-
-      const current_day = moment().format('ddd');
-      const current_day_hours = item.working_hours ? item.working_hours[current_day] : {};
-      return (
-        <View backgroundColor="#ffffff"
-        style={styles.itemFeatured}>
-        <TouchableOpacity key={item.id} onPress={() => this._openArticle(item)}>
-          <View style={{ borderRadius: 4, overflow: 'hidden', flexDirection: 'row'}}>
-            <View style={{ borderRadius: 8, overflow: 'hidden' }}>
-              {(item.galleries && item.galleries[0]) ? (item.galleries[0].images.map(image => {
-                return (
-                  <ImageBackground style={styles.featuredImage} source={{ uri: image.resized_image_url ? image.resized_image_url : "" }} >
-                    <View
-              style={{
-                position: "absolute",bottom: 10,left: 5,backgroundColor: "#ffffff",
-                borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center"    }}
-            >
-              <Text numberOfLines={1} adjustsFontSizeToFit={true} 
-                style={{
-                  color: "#3f4968",fontSize: 10,fontFamily: "GTWalsheimProM",  
-                }}
-              >{item.categories.length > 0 ? item.categories[0].title : "nema"}</Text>
-            </View>
-                  </ImageBackground>
-                );
-              })[0]) : (
-                  <ImageBackground style={styles.featuredImage} source={{ uri: item.images && item.images[0] ? item.images[0].resized_image_url : item.image ? item.image.resized_image_url : "" }} >
-                    <View
-              style={{
-                position: "absolute",bottom: 10,left: 5,backgroundColor: "#ffffff",
-                borderRadius: 22,flex:1,justifyContent: "center",alignItems: "center"
-              }}
-            >
-              <Text numberOfLines={1} adjustsFontSizeToFit={true} 
-                style={{
-                  color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",  textAlignVertical: "center",textAlign: "center",
-                }}
-              >{item.categories.length > 0 ? item.categories[0].title : "nema"} </Text>
-            </View>
-                  </ImageBackground>
-                )}
-
-            </View>
-            <View style={styles.itemOneContent}>
-            
-              <Text style={styles.itemOneTitle} numberOfLines={1}>
-                {item.title}
-              </Text>
-              <View style={{ display: "flex", flexDirection: "row", marginTop: 12, height: 18 }}>
-              <Feather name="map-pin" size={12} color="rgba(63, 73, 104, 0.8)" />                       
-                <Text style={styles.itemOnePrice} numberOfLines={1}>
-                  {item.address}
-                </Text>
-              </View>
-              <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
-                <MaterialIcons name="local-phone" size={16} color="#4A4A4A" />
-                <Text style={styles.itemOnePrice} numberOfLines={1}>
-                  {item.phone}
-                </Text>
-              </View>
-              <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
-                <MaterialIcons name="access-time" size={16} color="#4A4A4A" />
-                <Text style={styles.itemOnePrice} numberOfLines={1}>
-                  {current_day_hours && (current_day_hours.from || current_day_hours.to) ?
-                    ((moment(current_day_hours.from).isValid() ? moment(current_day_hours.from).format('HH:mm') : current_day_hours.from) + " - " +
-                      (moment(current_day_hours.to).isValid() ? moment(current_day_hours.to).format('HH:mm') : current_day_hours.to))
-                    : 'Zatvoreno'
-                  }
-                </Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </View >
-      )
-    });
-    return (
-      <View >
-        {cellViews}
       </View>
     );
-  };
+  }
+
 
 
   renderFeatured = ({ item }) => {
@@ -462,12 +376,12 @@ class ObjectsScreen extends Component {
                   <ImageBackground style={styles.featuredImage} source={{ uri: image.resized_image_url ? image.resized_image_url : "" }} >
                     <View
               style={{
-                position: "absolute",bottom: 10,left: 5,backgroundColor: "#ffffff",
-                borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center" ,padding:5   }}
+                position: "absolute",bottom: 5,left: 5,backgroundColor: "#ffffff",
+                borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center" ,   }}
             >
-              <Text numberOfLines={1} adjustsFontSizeToFit={true} 
+              <Text numberOfLines={1}
                 style={{
-                  color: "#3f4968",fontSize: 10,fontFamily: "GTWalsheimProM",  
+                  color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM", padding:6
                 }}
               >{item.categories.length > 0 ? item.categories[0].title : "nema"}</Text>
             </View>
@@ -477,15 +391,14 @@ class ObjectsScreen extends Component {
                   <ImageBackground style={styles.featuredImage} source={{ uri: item.images && item.images[0] ? item.images[0].resized_image_url : item.image ? item.image.resized_image_url : "" }} >
                     <View
               style={{
-                position: "absolute",bottom: 10,left: 5,backgroundColor: "#ffffff",
-                borderRadius: 22,flex:1,justifyContent: "center",alignItems: "center"
-              }}
+                position: "absolute",bottom: 5,left: 5,backgroundColor: "#ffffff",
+                borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center" ,   }}
             >
-              <Text numberOfLines={1} adjustsFontSizeToFit={true} 
+              <Text numberOfLines={1}
                 style={{
-                  color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",  textAlignVertical: "center",textAlign: "center",
+                  color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",padding:6 
                 }}
-              >{item.categories.length > 0 ? item.categories[0].title : "nema"} </Text>
+              >{item.categories.length > 0 ? item.categories[0].title : "nema"}</Text>
             </View>
                   </ImageBackground>
                 )}
@@ -503,14 +416,14 @@ class ObjectsScreen extends Component {
                 </Text>
               </View>
               <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
-                <MaterialIcons name="local-phone" size={16} color="#4A4A4A" />
-                <Text style={styles.itemOnePrice} numberOfLines={1}>
+              <AntDesign name="phone" size={16}  color="rgba(63, 73, 104, 0.8)" />                
+              <Text style={styles.itemOnePrice} numberOfLines={1}>
                   {item.phone}
                 </Text>
               </View>
               <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
-                <MaterialIcons name="access-time" size={16} color="#4A4A4A" />
-                <Text style={styles.itemOnePrice} numberOfLines={1}>
+              <Ionicons name="time-outline" size={16} color="rgba(63, 73, 104, 0.8)" />               
+               <Text style={styles.itemOnePrice} numberOfLines={1}>
                   {current_day_hours && (current_day_hours.from || current_day_hours.to) ?
                     ((moment(current_day_hours.from).isValid() ? moment(current_day_hours.from).format('HH:mm') : current_day_hours.from) + " - " +
                       (moment(current_day_hours.to).isValid() ? moment(current_day_hours.to).format('HH:mm') : current_day_hours.to))
@@ -682,6 +595,17 @@ const styles = StyleSheet.create({
   },
   itemThreeContainer: {
     backgroundColor: 'white',
+  },
+  roundButton2: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    bottom: 0,
+    left: Dimensions.get('window').width - 70,
+    backgroundColor: 'red',
+    zIndex: 100,
+  
+   
   },
 });
 
