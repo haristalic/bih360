@@ -68,16 +68,7 @@ export default createBottomTabNavigator(
       },
       },
       
-      Događaji: {
-        screen: EventsScreen,
-        navigationOptions: {
-          header: (
-            <View style={styles.headerContainer}>
-              <Text style={styles.headerCaption}>Događaji</Text>
-            </View>
-          ),
-        },
-      },
+
       Blog: {
         screen: BlogScreen,
         navigationOptions: {
@@ -101,9 +92,7 @@ export default createBottomTabNavigator(
             case 'Objekti':
               iconSource = "business";
               break;
-            case 'Događaji':
-              iconSource = "date-range";
-              break;
+          
             case 'Blog':
               iconSource = "textsms";
               break;

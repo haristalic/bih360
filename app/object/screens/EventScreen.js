@@ -23,6 +23,8 @@ import HTML from 'react-native-render-html';
 
 import GridRow from '../../home/GridRow'
 import moment from 'moment';
+import { Feather } from '@expo/vector-icons'; 
+
 
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 
@@ -61,44 +63,41 @@ class EventScreen extends Component {
     }
     const groupedData = GridRow.groupByRows(copy, 2);
     const groupedDataFeatured = GridRow.groupByRows(copyFeatured, 2);
+    const getBackgroundColor =
+    current_day_hours && this.isLocationOpen(current_day_hours)
+      ? "#1DB7A3"
+      : "#F6697A";
     return (
       <ScrollView>
         <View style={styles.itemOneImageContainer}>
-          <Image style={styles.itemOneImage} source={{ uri: location.images && location.images[0] ? location.images[0].content_url : location.image ? location.image.content_url : ""}} />
           <View style={styles.naslovContainer}>
-            <View style={{ width: 80, height: 80, alignContent: "center", justifyContent: "space-around" }}>
-              <View style={{ height: 63, width: 63, backgroundColor: "#ffffff", borderRadius: 32, }}>
-                <Image style={styles.naslovLogo} source={{ uri: location.logo ? location.logo.content_url : location.images && location.images[0] ? location.images[0].content_url : "" }} />
-
-              </View>
+            <View style={{  alignContent: "center", justifyContent: "space-around" }}>
             </View>
-            <View style={{ width: Dimensions.get('window').width - 116, height: 80, display: "flex", flexDirection: 'column', justifyContent: "space-around" }}>
-              <View style={{ flexDirection: "row", justifyContent: 'space-between', }}>
-                <Text style={{ fontSize: 13, color: "#032B43" }}>{item.categories.length > 0 ? item.categories[0].title : ""}</Text>
-
-                {current_day_hours && this.isLocationOpen(current_day_hours) ? (
-                  <Text style={{ fontSize: 13, color: "#1DB7A3", textAlign: "right" }}>
-                    Otvoreno
-                </Text>) :
-                  (<Text style={{ fontSize: 13, color: "#F6697A", textAlign: "right" }}>
-                    Zatvoreno
-                  </Text>)}
-              </View>
-              <View>
-                <Text style={{ fontSize: 24, color: "#032B43", fontFamily: fonts.primaryBold }}>
+            <View style={{marginLeft:20,marginTop:20 }}> 
+            <View style={{marginBottom:10}}>
+                <Text style={{ fontSize: 30, color: "#3f4968", fontFamily: fonts.primaryMedium }}>
                   {item.title}
                 </Text>
               </View>
+            <View
+                style={{
+                  backgroundColor: getBackgroundColor, width: 93,borderRadius: 3, padding: 5,overflow: "hidden",
+                  textAlign: "center",alignItems: "center",marginBottom: 10,
+                }}
+              >
+                {current_day_hours && this.isLocationOpen(current_day_hours) ? (
+                  <Text style={{ fontSize: 14, color: "#ffffff" }}>
+                    OTVORENO
+                  </Text>
+                ) : (
+                  <Text style={{ fontSize: 14, color: "#ffffff", }}>
+                    ZATVORENO
+                  </Text>
+                )}
+              </View>
+             
             </View>
           </View>
-          <View
-            style={{
-              borderBottomColor: '#D1D3D4',
-              borderBottomWidth: StyleSheet.hairlineWidth,
-            }}
-          />
-
-
           <ScrollView>
             <FlatList
               keyExtractor={item =>
@@ -123,25 +122,35 @@ class EventScreen extends Component {
         <View style={{ borderRadius: 4, overflow: 'hidden' }}>
           <View style={{ borderRadius: 8, overflow: 'hidden' }}>
             <ImageBackground style={styles.featuredImage} source={{ uri: item.images.length > 0 ? item.images[0].resized_image_url : "" }} >
-              
+            <View
+              style={{
+                position: "absolute",bottom: 5,left: 5,backgroundColor: "#ffffff",
+                borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center" ,   }}
+            >
+              <Text numberOfLines={1}
+                style={{
+                  color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",padding:6 
+                }}
+              >{item.type.name.length}</Text>
+            </View>
             </ImageBackground>
           </View>
           <View style={styles.itemOneContent}>
               <Text
                 style={styles.itemOneSubTitle} numberOfLines={1}>
-                {item.type.name}
+                
               </Text>
               <Text style={styles.itemOneTitle} numberOfLines={1}>
                 {item.title}
               </Text>
               <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
-                <MaterialIcons name="place" size={16} color="#4A4A4A" />
-                <Text style={styles.itemOnePrice} numberOfLines={1}>
+              <Feather name="map-pin" size={12} color="rgba(63, 73, 104, 0.8)" />
+               <Text style={styles.itemOnePrice} numberOfLines={1}>
                   {item.location != null ? item.location.address : ""}
                 </Text>
               </View>
               <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
-                <MaterialIcons name="date-range" size={16} color="#4A4A4A" />
+                <MaterialIcons name="date-range" size={12} color="#4A4A4A" />
                 <Text style={styles.itemOnePrice} numberOfLines={1}>
                   {
                     (item.time && item.time.from) ?
@@ -166,8 +175,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: 'row',
     width: Dimensions.get("window").width - 32,
-    height: 80,
-    margin: 16,
+ 
   },
   naslovLogo: {
     height: 63,
@@ -212,12 +220,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   }, 
   itemFeatured: {
-    width: Dimensions.get('screen').width  - 16,
+    width: 350,
     height: 260,
     marginTop: 16,
-    marginBottom: 16,
-    marginLeft: 8,
-    marginRight: 8
+    marginLeft: 20,
+    marginRight: 20
   },
   itemOneRow: {
     flexDirection: 'row',
@@ -276,7 +283,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   featuredImage: {
-    height: 146,
+    height: 131,
     borderRadius: 8
     //width: Dimensions.get('window').width / 2 - 25,
   },
@@ -299,22 +306,21 @@ const styles = StyleSheet.create({
   },
   itemOneTitle: {
     marginTop: 8,
-    fontFamily: fonts.primaryBold,
-    fontSize: 16,
-    color: "#4A4A4A",
-    height: 19
+    fontFamily: fonts.primaryMedium,
+    fontSize: 20,
+    color: "#3f4968",
+  
   },
   itemOneSubTitle: {
     fontFamily: fonts.primaryLight,
     fontSize: 13,
     color: '#4A4A4A',
-    marginVertical: 3,
-    height: 18
   },
   itemOnePrice: {
-    fontFamily: fonts.primaryRegular,
-    fontSize: 13,
-    marginLeft: 12
+    fontFamily: fonts.primaryLight,
+    fontSize: 12,
+    marginLeft: 12,
+    color:"rgba(63, 73, 104, 0.8)"
   },
   itemOneRow: {
     flexDirection: 'row',

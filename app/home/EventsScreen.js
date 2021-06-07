@@ -184,11 +184,8 @@ class EventsScreen extends Component {
     const copyFeatured = [];
     if (this.state.dataSource != null) {
       this.state.dataSource.forEach(element => {
-        if (element.location != null && element.location.featured) {
           copyFeatured.push(element);
-        } else {
-          copy.push(element);
-        }
+  
       });
     }
 
@@ -300,10 +297,7 @@ class EventsScreen extends Component {
           </View>
         </View>
         <View
-          style={{
-            borderBottomColor: '#D1D3D4',
-            borderBottomWidth: StyleSheet.hairlineWidth,
-          }}
+       
         />
         <Text style={styles.objektiTitle} numberOfLines={1}>
           Događaji
@@ -322,64 +316,9 @@ class EventsScreen extends Component {
             renderItem={this.renderFeatured}
           ></FlatList>
         </ScrollView>
-        <FlatList
-          keyExtractor={item =>
-            item.id
-          }
-          style={{ backgroundColor: "#ffffff", paddingHorizontal: 5, display: "flex", alignContent: "flex-start" }}
-          data={groupedData}
-          renderItem={this.renderRowOne}
-        >
-        </FlatList>
       </ScrollView>
     );
   }
-  renderRowOne = rowData => {
-    const cellViews = rowData.item.map(item => (
-      <View backgroundColor="#ffffff"
-        style={styles.objectCardStyle}>
-        <TouchableOpacity key={item.id} onPress={() => this._openArticle(item.location)}>
-          <View>
-            <View style={{ borderRadius: 8, overflow: 'hidden' }}>
-              <Image style={styles.itemOneImage} source={{ uri: item.image ? item.image.resized_image_url : (item.images && item.images[0]) ? item.images[0].resized_image_url : "" }} />
-            </View>
-            <View style={styles.itemOneContent}>
-              <Text
-                style={styles.itemOneSubTitle} numberOfLines={1}>
-                {item.type.name}
-              </Text>
-              <Text style={styles.itemOneTitle} numberOfLines={1}>
-                {item.title}
-              </Text>
-              <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
-                <MaterialIcons name="place" size={16} color="#4A4A4A" />
-                <Text style={styles.itemOnePrice} numberOfLines={1}>
-                  {item.location != null ? item.location.address : ""}
-                </Text>
-              </View>
-              <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
-                <MaterialIcons name="date-range" size={16} color="#4A4A4A" />
-                <Text style={styles.itemOnePrice} numberOfLines={1}>
-                  {
-                    (item.time && item.time.from) ?
-                      (moment(item.time.from).format('DD MMM YYYY.')) : (
-                        moment(item.start).isValid() ? moment(item.start).format('DD.MM.YYYY.') : item.start
-                      )
-                  }
-                </Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </View >
-    ));
-    return (
-      <View style={styles.itemOneRow}>
-        {cellViews}
-      </View>
-    );
-  };
-
 
   renderFeatured = ({ item }) => (
     <View backgroundColor="#ffffff"
@@ -389,22 +328,16 @@ class EventsScreen extends Component {
           <View style={{ borderRadius: 8, overflow: 'hidden' }}>
             <ImageBackground style={styles.featuredImage} source={{ uri: item.images.length > 0 ? item.images[0].resized_image_url : "" }} >
               <MaterialIcons style={{ margin: 8 }} name="stars" size={24} color="#ffffff" />
-              <View
-              style={{ position: "absolute",bottom: 10,right: 10,backgroundColor: "#ffffff",width: 60,height: 20,borderRadius: 22,
-                overflow: "hidden",
-                textAlign: "center",
-                alignItems: "center",
-              }}
+                   <View
+              style={{
+                position: "absolute",bottom: 5,right: 5,backgroundColor: "#ffffff",
+                borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center" ,   }}
             >
-              <Text
+              <Text numberOfLines={1}
                 style={{
-                  color: "#3f4968",
-                  fontSize: 14,
-                  fontFamily: "GTWalsheimProM",
+                  color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",padding:6 
                 }}
-              >
-                {item.type.name}
-              </Text>
+              >{item.type.name}</Text>
             </View>
             </ImageBackground>
           </View>
@@ -439,12 +372,12 @@ class EventsScreen extends Component {
 
 const styles = StyleSheet.create({
   itemFeatured: {
-    width: 242,
+    width:350,
     height: 289,
-    marginTop: 16,
-    marginBottom: 16,
-    marginLeft: 8,
-    marginRight: 8
+    marginBottom: 5,
+    marginLeft:10,
+    marginRight:10
+    
   },
   itemOneRow: {
     flexDirection: 'row',
@@ -454,8 +387,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width / 2 - 12,
     height: 267,
     marginTop: 2,
-    marginLeft: 4,
-    marginRight: 4,
+    marginLeft: 10,
+    marginRight: 10,
     marginBottom: 6,
     backgroundColor: '#ffffff',
   },

@@ -15,7 +15,7 @@ import {
 import Dialog, { DialogContent } from "react-native-popup-dialog";
 import colors from "../../../styles/colors";
 import fonts from "../../../styles/fonts";
-import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, FontAwesome ,Feather,AntDesign,MaterialCommunityIcons} from "@expo/vector-icons";
 import HTML from "react-native-render-html";
 import moment from "moment";
 import MapView from "react-native-maps";
@@ -153,8 +153,8 @@ class InfoScreen extends Component {
               }}
             />
           )}
-
-          <View style={{ marginTop: 24, marginLeft: 20, marginBottom: 16 }}>
+<View >
+          <View style={{ marginTop: 24, marginLeft: 20, marginBottom: 16,backgroundColor:'' }}>
             <Text style={{fontSize:20,color:"#3f4968"}}>Kategorija</Text>
             {item.categories.length >0 ?  (<View style={{ width:150,height:34,padding:15,backgroundColor:'rgba(63, 73, 104, 0.8)', 
                  justifyContent: 'center',padding:15,
@@ -173,7 +173,7 @@ class InfoScreen extends Component {
                 height: 18,
               }}
             >
-              <MaterialIcons name="place" size={17} color="rgba(63, 73, 104, 0.8)" />
+                <Feather name="map-pin" size={16} color="rgba(63, 73, 104, 0.8)" />                       
               <Text style={styles.itemOnePrice} numberOfLines={1}>
                 {item.address}
               </Text>
@@ -190,7 +190,7 @@ class InfoScreen extends Component {
                 height: 18,
               }}
             >
-              <MaterialIcons name="local-phone" size={16} color="#4A4A4A" />
+              <AntDesign name="phone" size={16}  color="rgba(63, 73, 104, 0.8)" />                
               <Text style={styles.itemOnePrice} numberOfLines={1}>
                 {item.phone}
               </Text>
@@ -209,7 +209,7 @@ class InfoScreen extends Component {
             marginTop: 15,
             height: 18, }}
           >
-          <MaterialIcons name="schedule" size={16} color="#4A4A4A" />
+              <Ionicons name="time-outline" size={16} color="rgba(63, 73, 104, 0.8)" />               
             <Text
               style={{
                 fontFamily: fonts.primaryRegular,
@@ -248,8 +248,8 @@ class InfoScreen extends Component {
                 height: 18,
               }}
             >
-              <MaterialIcons name="explore" size={16} color="#4A4A4A" />
-              <Text style={styles.itemOnePrice} numberOfLines={1}>
+<MaterialCommunityIcons name="web" size={16}  color="rgba(63, 73, 104, 0.8)" />            
+  <Text style={styles.itemOnePrice} numberOfLines={1}>
                 {item.website}
               </Text>
             </View>
@@ -265,8 +265,8 @@ class InfoScreen extends Component {
                 height: 18,
               }}
             >
-              <MaterialIcons name="mail" size={16} color="#4A4A4A" />
-              <Text style={styles.itemOnePrice} numberOfLines={1}>
+<MaterialCommunityIcons name="email-outline"  size={16}  color="rgba(63, 73, 104, 0.8)"/>             
+<Text style={styles.itemOnePrice} numberOfLines={1}>
                 {item.email}
               </Text>
             </View>
@@ -282,8 +282,8 @@ class InfoScreen extends Component {
                 height: 18,
               }}
             >
-              <FontAwesome name="facebook-square" size={16} color="#4A4A4A" />
-              <Text style={styles.itemOnePrice} numberOfLines={1}>
+<Feather name="facebook" size={16}  color="rgba(63, 73, 104, 0.8)" />              
+<Text style={styles.itemOnePrice} numberOfLines={1}>
                 {item.facebook}
               </Text>
             </View>
@@ -328,12 +328,12 @@ class InfoScreen extends Component {
               style={{
                 fontSize: 30,
                 color: "#3f4968",
-                marginTop:20,
-                fontFamily: fonts.primaryBold,
+                marginTop:30,
+                fontFamily: fonts.primaryMedium,
               }}
             >
               O nama
-            </Text>
+            </Text></View>
           </View>
 
           <View
@@ -344,7 +344,22 @@ class InfoScreen extends Component {
               color: "#032B43",
             }}
           >
-            <HTML html={item.description} />
+            <HTML
+              style={{ marginTop: 12 }}
+              html={"<k>" + item.description+ "</k>"}
+              renderers={{
+                k: (htmlAttribs, children, convertedCSSStyles, passProps) => (
+                  <Text
+                    textAlign="justify"
+                    style={{ color: "rgba(63, 73, 104, 0.8)", fontSize: 16, fontFamily: fonts.primaryLight,lineHeight:25
+                  }}
+                  >
+                    {children}
+                  </Text>
+                ),
+              }}
+            />
+            
           </View>
 
         
