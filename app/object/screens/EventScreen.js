@@ -131,7 +131,7 @@ class EventScreen extends Component {
                 style={{
                   color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",padding:6 
                 }}
-              >{item.type.name.length}</Text>
+              >{item.type.name}</Text>
             </View>
             </ImageBackground>
           </View>

@@ -43,9 +43,9 @@ class ObjectsScreen extends Component {
 
     mycity = this.props.screenProps;
     if (mycity && mycity.id) {
-      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: mycity.id, category: "", cityName: mycity.name, refreshing: false, };
+      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: mycity.id, category: "", cityName: mycity.name, refreshing: false,visible:false };
     } else {
-      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: "", category: "", cityName: "Svi", refreshing: false, };
+      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: "", category: "", cityName: "Svi", refreshing: false,visible:false };
     }
     this.state.visibleCategory = false;
     this.state.visibleLocation = false;
@@ -210,7 +210,8 @@ class ObjectsScreen extends Component {
     this.setState({ refreshing: true });
     this.loadAllData()
   }
-
+ visible(){
+ }
   render() {
     if (this.state.isLoading) {
       return (
@@ -242,52 +243,9 @@ class ObjectsScreen extends Component {
       >      
     
         <View style={styles.cardContainer}>
-          <Dialog style={{ marginLeft: 16, marginRight: 16 }}
-            visible={this.state.visibleLocation}
-            onTouchOutside={() => {
-              this.setState({ visibleLocation: false });
-            }}
-          >
-            <DialogContent style={{ paddingTop: 16, height: 250 }}>
-              <ScrollView style={{ height: 250 }}>
-                {this.state.cities.map((city, index) => {
-                  return (
-                    <TouchableOpacity onPress={() => {
-                      this.onChangeCityPress(city);
-                    }}>
-                      <Text style={{ color: "#4A4A4A", fontSize: 16, width: Dimensions.get("screen").width - 64, height: 32 }}>
-                        {city.name}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </ScrollView>
-
-            </DialogContent>
-          </Dialog>
-          <Dialog style={{ marginLeft: 16, marginRight: 16 }}
-            visible={this.state.visibleCategory}
-            onTouchOutside={() => {
-              this.setState({ visibleCategory: false });
-            }}
-          >
-            <DialogContent style={{ paddingTop: 16, height: 250 }}>
-              <ScrollView style={{ height: 250 }}>
-                {this.state.categories.map((city, index) => {
-                  return (
-                    <TouchableOpacity onPress={() => {
-                      this.onChangeCategoryPress(city);
-                    }}>
-                      <Text style={{ color: "#4A4A4A", fontSize: 16, width: Dimensions.get("screen").width - 64, height: 32 }}>
-                        {city.title}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </ScrollView>
-
-            </DialogContent>
-          </Dialog>
+          <View style={{    }}>
+       </View>
+      
           <View style={{ display: "flex", flexDirection: "row", width: Dimensions.get('window').width, backgroundColor: "#fff", marginTop:-16, marginBottom:-16 }}>
             {/* <TouchableOpacity onPress={() => {
               this.setState({ visibleLocation: true });
@@ -301,9 +259,10 @@ class ObjectsScreen extends Component {
                 </View>
               </View>
             </TouchableOpacity> */}
-
-            <Dropdown
-              containerStyle={{ width: Dimensions.get('window').width / 2 - 4, paddingLeft: 8, paddingRight: 8 }}
+<View style={{flexDirection:'column',marginLeft:10,marginRight:10}}>
+  <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Odaberi grad</Text>
+        <Dropdown
+              containerStyle={{ width: 350 , paddingLeft: 8, paddingRight: 8 }}
               label='Grad'
               data={this.state.cities}
               onChangeText={(value, index, data) => {
@@ -311,14 +270,16 @@ class ObjectsScreen extends Component {
               }}
 
             />
+  <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Kategorija</Text>
+
             <Dropdown
-              containerStyle={{ width: Dimensions.get('window').width / 2 - 4, paddingLeft: 8, paddingRight: 16 }}
+              containerStyle={{ width: 350, paddingLeft: 8, paddingRight: 16 }}
               label='Kategorija'
               data={this.state.categories}
               onChangeText={(value, index, data) => {
                 this.onChangeCategoryPress(data[index]);
               }}
-            />
+            /></View>
             {/* <TouchableOpacity onPress={() => {
               this.setState({ visibleCategory: true });
             }}>
@@ -481,6 +442,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#ffffff',
     padding: 10,
+    flexDirection:'row'
   }, itemTwoCard: {
     flex: 1,
     backgroundColor: 'white',
