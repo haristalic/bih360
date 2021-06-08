@@ -31,18 +31,16 @@ import BlogScreen from './home/BlogScreen';
 const stackNav = createStackNavigator({
   Main: {
     screen: HomeNavigationScreen,
-    backgroundColor: "#0091D4",
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: ({navigation}) => ({
       headerTitle: (
-        <Image source={{ uri: logowhiteicon }} style={{ height: 28, width: 100, }} />
-      ),
-      headerLeft: (<TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <Image source={{ uri: logowhiteicon }}  resizeMode="contain" style={{ height: 68, width: 100, flex: 1}} />
+      ), headerTitleStyle: { fontWeight: 'bold', alignSelf: 'center', textAlign: 'center', justifyContent: 'center' },
+      headerRight: (<TouchableOpacity onPress={() => navigation.openDrawer()}>
         <IOSIcon name="ios-menu" color="#ffffff" size={30} style={{ marginHorizontal: 15 }} />
       </TouchableOpacity>
       ),
       backgroundColor: "#0091D4",
-      
-    })
+    }),
   },
   Detail: {
     screen: DetailScreen,

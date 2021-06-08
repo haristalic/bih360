@@ -69,6 +69,13 @@ class InfoScreen extends Component {
       { value: "Sun", label: "Nedjelja" },
     ];
     const images = [];
+    location.galleries.forEach((element)=>
+    {
+      element.images.forEach((img)=>{
+        images.push(img.content_url);
+
+      })
+    })
     location.images &&
       location.images.forEach((element) => {
         images.push(element.content_url);

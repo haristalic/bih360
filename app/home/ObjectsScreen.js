@@ -32,7 +32,8 @@ import moment from 'moment';
 import { Font } from 'expo-font';
 
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
-
+import {Transition,Transitioning} from 'react-native-reanimated';
+import { TextInput } from 'react-native-gesture-handler';
 
 
 
@@ -50,6 +51,7 @@ class ObjectsScreen extends Component {
     this.state.visibleCategory = false;
     this.state.visibleLocation = false;
     this.state.categoryName = "Sve";
+    this.state.show = false;
   }
   componentDidMount() {
     this.loadAssetsAsync()
@@ -210,8 +212,16 @@ class ObjectsScreen extends Component {
     this.setState({ refreshing: true });
     this.loadAllData()
   }
- visible(){
- }
+  ToggleClick = () => {
+    this.setState({ show: !this.state.show });
+    console.log(this.state.show );
+  }
+  addObjc = () => {
+    const { navigate } = this.props.navigation;
+        navigate({
+          routeName: 'AddObject',
+        });
+  }
   render() {
     if (this.state.isLoading) {
       return (
@@ -220,11 +230,11 @@ class ObjectsScreen extends Component {
         </View>
       )
     }
+  
     const data = this.state.el1;
     const copyFeatured = this.state.el2;
     const groupedData = this.state.el3;
     const cats = this.state.el4;
-
    
 
     if (!this.state.fontLoaded) {
@@ -259,8 +269,25 @@ class ObjectsScreen extends Component {
                 </View>
               </View>
             </TouchableOpacity> */}
-<View style={{flexDirection:'column',marginLeft:10,marginRight:10}}>
-  <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Odaberi grad</Text>
+<View  style={{flexDirection:'column',marginLeft:10,marginRight:10,marginBottom:20}}>
+  <TouchableOpacity onPress={() =>this.ToggleClick() }>
+  <View style={{ display: "flex",alignItems:"flex-end", flexDirection: "row", marginBottom: 10,width: 350 , }}>
+              <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}} >
+                  Pretraga
+                </Text>        
+                
+                {this.state.show?(<AntDesign style={{justifyContent: "flex-end"}} name="arrowup" size={16}  color="rgba(63, 73, 104, 0.8)" /> ):(
+                  <AntDesign style={{justifyContent: "flex-end"}} name="arrowdown" size={16}  color="rgba(63, 73, 104, 0.8)" /> 
+                ) }   
+                                
+              </View>
+                
+   </TouchableOpacity>
+  {this.state.show?(
+          <View>
+            <TextInput 	style={{width: 350, paddingLeft: 8, paddingRight: 16 }}  placeholder="Pretraga..."/>
+ <Text  style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Odaberi grad</Text>
+  
         <Dropdown
               containerStyle={{ width: 350 , paddingLeft: 8, paddingRight: 8 }}
               label='Grad'
@@ -279,7 +306,12 @@ class ObjectsScreen extends Component {
               onChangeText={(value, index, data) => {
                 this.onChangeCategoryPress(data[index]);
               }}
-            /></View>
+            />
+
+          </View>
+
+        ):null}
+ </View>
             {/* <TouchableOpacity onPress={() => {
               this.setState({ visibleCategory: true });
             }}>
@@ -316,6 +348,11 @@ class ObjectsScreen extends Component {
         </ScrollView>
 
       </ScrollView>
+      <TouchableOpacity
+      onPress={() =>this.  addObjc() }
+        style={styles.roundButton1}>
+        <Text style={{fontSize:30,color:'#ffffff'}}>+</Text>
+      </TouchableOpacity>
       </View>
     );
   }
@@ -557,18 +594,18 @@ const styles = StyleSheet.create({
   },
   itemThreeContainer: {
     backgroundColor: 'white',
-  },
-  roundButton2: {
+  },roundButton1: {
     position: 'absolute',
-    width: 50,
-    height: 50,
-    bottom: 0,
+    bottom: 20,
     left: Dimensions.get('window').width - 70,
-    backgroundColor: 'red',
-    zIndex: 100,
-  
-   
-  },
+    width: 59,
+    height: 59,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 100,
+    backgroundColor: '#feba02',
+  }
 });
 
 const buttonStyle = {
