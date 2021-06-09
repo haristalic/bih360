@@ -66,6 +66,10 @@ class PriceScreen extends Component {
     const current_day_hours = item ? item.working_hours ? item.working_hours[current_day] : {} : {};
     const copy = [];
     const copyFeatured = [];
+    const getBackgroundColor =
+      current_day_hours && this.isLocationOpen(current_day_hours)
+        ? "#1fdc37"
+        : "#F6697A";
     this.state.dataSource.forEach(element => {
       if (element.location.id === item.id) {
         if (element.items != null) {
@@ -78,8 +82,51 @@ class PriceScreen extends Component {
     });
     const groupedData = GridRow.groupByRows(copy, 2);
     const groupedDataFeatured = GridRow.groupByRows(copyFeatured, 2);
+    console.log(location.prices);
     return (
-      <ScrollView>
+      <View style={{flex:1}}>
+         <View
+            style={{ flexDirection: "row", justifyContent: "space-between" , marginLeft: 20,
+          }}
+          >
+            {/**comentar */}
+            <View>
+              <View style={{ marginBottom: 10, marginTop: 20 }}>
+                <Text
+                  style={{
+                    fontSize: 34,
+                    color: "#032B43",
+                    fontFamily: fonts.primaryLight,
+                  }}
+                >
+                  {item.title}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: getBackgroundColor,
+                  width: 93,
+                  borderRadius: 3,
+                  padding: 5,
+                  overflow: "hidden",
+                  textAlign: "center",
+                  alignItems: "center",
+                  marginBottom: 20,
+                }}
+              >
+                {current_day_hours && this.isLocationOpen(current_day_hours) ? (
+                  <Text style={{ fontSize: 14, color: "#ffffff" }}>
+                    OTVORENO
+                  </Text>
+                ) : (
+                  <Text style={{ fontSize: 14, color: "#ffffff", }}>
+                    ZATVORENO
+                  </Text>
+                )}
+              </View>
+            </View>
+          </View>
+        {(location.prices)?(
         <View style={styles.itemOneImageContainer}>
           <Image style={styles.itemOneImage} source={{ uri: location.images && location.images[0] ? location.images[0].content_url : location.image ? location.image.content_url : "" }} />
           <View style={styles.naslovContainer}>
@@ -130,8 +177,13 @@ class PriceScreen extends Component {
               renderItem={this.renderFeatured}
             ></FlatList>
           </ScrollView>
+        </View>):(<View style={{alignItems: 'center',
+    justifyContent: 'center',flex:1}}>
+          <Image source={require('../../../assets/empty-box-img.png')} style={{ width:258,height:173,marginBottom:40}} />  
+          <Text style={{fontSize:20,lineHeight:35, color:'#3f4968',  fontFamily: fonts.primaryMedium,}}>Izabrana rubrika je{"\n"} trenutno prazna</Text>   
         </View>
-      </ScrollView>
+)}
+      </View>
     );
   }
 

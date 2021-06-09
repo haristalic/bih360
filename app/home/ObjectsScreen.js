@@ -275,7 +275,7 @@ class ObjectsScreen extends Component {
            marginRight:2
           }}          source={{uri:item.icon.content_url }}
         />)}  
-              <Text numberOfLines={1} style={{ fontSize: 14, color: "#ffffff",textAlign:'center' }}>{item.title}</Text>
+              <Text  style={{ fontSize: 14, color: "#ffffff",textAlign:'center' }}>{item.title}</Text>
            </View>
        
         
@@ -334,8 +334,8 @@ class ObjectsScreen extends Component {
                   Pretraga
                 </Text>        
                 
-                {this.state.show?(<AntDesign style={{justifyContent: "flex-end"}} name="arrowup" size={16}  color="rgba(63, 73, 104, 0.8)" /> ):(
-                  <AntDesign style={{justifyContent: "flex-end"}} name="arrowdown" size={16}  color="rgba(63, 73, 104, 0.8)" /> 
+                {this.state.show?(<AntDesign style={{justifyContent: "flex-end"}} name="up" size={16}  color="rgba(63, 73, 104, 0.8)" /> ):(
+                  <AntDesign style={{justifyContent: "flex-end"}} name="down" size={16}  color="rgba(63, 73, 104, 0.8)" /> 
                 ) }   
                                 
               </View>

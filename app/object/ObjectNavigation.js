@@ -9,7 +9,7 @@ import {
 
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons,Feather, Entypo  } from '@expo/vector-icons';
 import { Font } from 'expo-font';
 
 import InfoScreen from './screens/InfoScreen'
@@ -69,14 +69,7 @@ const TABS = {
   },
   Cijenik: {
     screen: PriceScreen,
-    navigationOptions: {
-      header: (
-        <View style={styles.headerContainer}>
-          <MaterialIcons name="local-offer" size={24} color="#9B9B9B" />
-          <Text style={styles.headerCaption}>Cijenik</Text>
-        </View>
-      ),
-    },
+   
   },
   Događaji: {
     screen: EventScreen,
@@ -116,8 +109,8 @@ const TABS = {
     navigationOptions: {
       header: (
         <View style={styles.headerContainer}>
-          <MaterialIcons name="3d-rotation" size={24} color="#9B9B9B" />
-          <Text style={styles.headerCaption}>360</Text>
+      <Feather name="video" size={24} color="#ffffff" />    
+      <Text style={styles.headerCaption}>Video</Text>
         </View>
       ),
     },
@@ -134,18 +127,16 @@ export default class DynamicTabNavigator extends Component {
     const tabs = {};
     tabs.Info = TABS.Info;
     console.log(location);
-    if (location.prices) {
       tabs.Cijenik = TABS.Cijenik;
-    }
+  
     if (location.events && location.events.length > 0) {
       tabs.Događaji = TABS.Događaji;
     }
     if (location.galleries && location.galleries.length > 0) {
       tabs.Galerija = TABS.Galerija;
     }
-    if (location.video_url && location.video_url.length > 0) {
       tabs.Video = TABS.Video
-    }
+   
     if (location.url360 && location.url360.length > 0) {
       tabs.Virtual = TABS.Virtual;
     }
@@ -158,10 +149,12 @@ export default class DynamicTabNavigator extends Component {
           // eslint-disable-next-line react/prop-types
           tabBarIcon: ({ focused }) => {
             const { routeName } = navigation.state;
-            let iconSource;
+            let iconSource;          
+
             switch (routeName) {
               case 'Info':
                 iconSource = "info";
+
                 break;
               case 'Događaji':
                 iconSource = "date-range";
@@ -182,6 +175,7 @@ export default class DynamicTabNavigator extends Component {
                 iconSource = "local-offer";
             }
             return (
+              
               <View style={styles.tabBarItemContainer}>
                 <MaterialIcons name={iconSource} size={24} color={focused ? "#ffffff" : "#376894"} />
               </View>

@@ -31,14 +31,14 @@ import BlogScreen from './home/BlogScreen';
 const stackNav = createStackNavigator({
   Main: {
     screen: HomeNavigationScreen,
-    navigationOptions: ({}) => ({
+    navigationOptions: ({navigation}) => ({
       headerTitle: (
         <Image source={{ uri: logowhiteicon }}  resizeMode="contain" style={{ height: 68, width: 100, flex: 1}} />
       ), headerTitleStyle: { fontWeight: 'bold', alignSelf: 'center', textAlign: 'center', justifyContent: 'center' },
       headerRight: (<TouchableOpacity onPress={() => navigation.openDrawer()}>
         <IOSIcon name="ios-menu" color="#ffffff" size={30} style={{ marginHorizontal: 15 }} />
       </TouchableOpacity>
-      ),headerLeft: null,
+      ),headerLeft:null,
       backgroundColor: "#0091D4",
     }),
   },

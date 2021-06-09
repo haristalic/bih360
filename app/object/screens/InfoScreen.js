@@ -57,7 +57,7 @@ class InfoScreen extends Component {
     const location = item;
     const getBackgroundColor =
       current_day_hours && this.isLocationOpen(current_day_hours)
-        ? "#1DB7A3"
+        ? "#1fdc37"
         : "#F6697A";
     const DAYS = [
       { value: "Mon", label: "Ponedjeljak" },
@@ -354,12 +354,23 @@ class InfoScreen extends Component {
             <HTML
               style={{ marginTop: 12 }}
               html={"<k>" + item.description+ "</k>"}
+            
               renderers={{
                 k: (htmlAttribs, children, convertedCSSStyles, passProps) => (
                   <Text
                     textAlign="justify"
                     style={{ color: "rgba(63, 73, 104, 0.8)", fontSize: 16, fontFamily: fonts.primaryLight,lineHeight:25
                   }}
+                  
+                  >
+                    {children}
+                  </Text>
+                ),     div: (htmlAttribs, children, convertedCSSStyles, passProps) => (
+                  <Text
+                    textAlign="justify"
+                    style={{ color: "rgba(63, 73, 104, 0.8)", fontSize: 16, fontFamily: fonts.primaryLight,lineHeight:25
+                  }}
+                  
                   >
                     {children}
                   </Text>
