@@ -13,7 +13,8 @@ import {
   TouchableOpacity,
   Image,
   Platform,
-  ImageBackground,
+  ImageBackground,  SafeAreaView, 
+
 } from 'react-native';
 import { Feather } from '@expo/vector-icons'; 
 
@@ -44,9 +45,15 @@ class ObjectsScreen extends Component {
 
     mycity = this.props.screenProps;
     if (mycity && mycity.id) {
-      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: mycity.id, category: "", cityName: mycity.name, refreshing: false,visible:false };
+      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: mycity.id, category: "", cityName: mycity.name, refreshing: false,visible:false,page:1,
+      perPage:2,
+      loadMoreVisible:true,    displayArray:[]
+    };
     } else {
-      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: "", category: "", cityName: "Svi", refreshing: false,visible:false };
+      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: "", category: "", cityName: "Svi", refreshing: false,visible:false,page:1,
+      perPage:2,
+      loadMoreVisible:true,     displayArray:[]
+    };
     }
     this.state.visibleCategory = false;
     this.state.visibleLocation = false;
@@ -106,6 +113,7 @@ class ObjectsScreen extends Component {
         this.setState({
           isLoading: false,
           categories: responseJson,
+          cat: responseJson
         }, function () {
 
         });
@@ -222,7 +230,57 @@ class ObjectsScreen extends Component {
           routeName: 'AddObject',
         });
   }
+  setNewData = () =>{ 
+    var tempArray=[]
+    if(this.state.cat.length == this.state.displayArray.length){
+      this.setState({
+        loadMoreVisible:false
+      })
+    }else{
+       for(var i=0; i<(this.state.page*this.state.perPage); i++){
+      tempArray.push(this.state.cat[i])
+      }
+      this.setState({
+        displayArray: tempArray,
+        loadMoreVisible:true
+      })
+    }
+
+   
+  }
+
+  loadMore(){
+    this.setState({
+      page: this.state.page+1
+    },()=>{
+      this.setNewData()
+    })
+  }
   render() {
+    const ticketItem = ({item}) => {
+        
+      return (
+       
+      <View style={{height:40,padding:8,backgroundColor:'rgba(63, 73, 104, 0.8)', 
+      flex:1,
+      maxWidth: Dimensions.get('window').width / 3 - 10, // Width / 3 - (marginLeft and marginRight for the components)
+      justifyContent: 'center',
+      alignItems:'center',   flexDirection:'row',
+      margin:5,
+       borderRadius:22}}> 
+                  {item.icon ==null ?(<View></View>):( <Image
+          style={ {
+            width: 16,
+            height: 14,
+           marginRight:2
+          }}          source={{uri:item.icon.content_url }}
+        />)}  
+              <Text numberOfLines={1} style={{ fontSize: 14, color: "#ffffff",textAlign:'center' }}>{item.title}</Text>
+           </View>
+       
+        
+      );
+  };
     if (this.state.isLoading) {
       return (
         <View style={{ flex: 1, padding: 20 }}>
@@ -307,6 +365,15 @@ class ObjectsScreen extends Component {
                 this.onChangeCategoryPress(data[index]);
               }}
             />
+                  <ScrollView style={{width: 350 ,overflow:"scroll"}}>
+  
+  <FlatList
+  numColumns={3}
+   data={this.state.cat}
+           renderItem={ticketItem}
+       
+  />
+  </ScrollView> 
 
           </View>
 
