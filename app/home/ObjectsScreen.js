@@ -329,13 +329,13 @@ class ObjectsScreen extends Component {
             </TouchableOpacity> */}
 <View  style={{flexDirection:'column',marginLeft:10,marginRight:10,marginBottom:20}}>
   <TouchableOpacity onPress={() =>this.ToggleClick() }>
-  <View style={{ display: "flex",alignItems:"flex-end", flexDirection: "row", marginBottom: 10,width: 350 , }}>
-              <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}} >
+  <View style={{ marginTop:10,marginBottom: 10,width: 350 ,display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+              <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968"}} >
                   Pretraga
                 </Text>        
                 
-                {this.state.show?(<AntDesign style={{justifyContent: "flex-end"}} name="up" size={16}  color="rgba(63, 73, 104, 0.8)" /> ):(
-                  <AntDesign style={{justifyContent: "flex-end"}} name="down" size={16}  color="rgba(63, 73, 104, 0.8)" /> 
+                {this.state.show?(<AntDesign style={{justifyContent: "flex-end"}} name="up" size={20}  color="rgba(63, 73, 104, 0.8)" /> ):(
+                  <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" /> 
                 ) }   
                                 
               </View>
@@ -365,7 +365,7 @@ class ObjectsScreen extends Component {
                 this.onChangeCategoryPress(data[index]);
               }}
             />
-                  <ScrollView style={{width: 350 ,overflow:"scroll"}}>
+                {/* <ScrollView style={{width: 350 ,overflow:"scroll"}}>
   
   <FlatList
   numColumns={3}
@@ -373,7 +373,7 @@ class ObjectsScreen extends Component {
            renderItem={ticketItem}
        
   />
-  </ScrollView> 
+            </ScrollView> */}
 
           </View>
 

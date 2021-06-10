@@ -96,23 +96,30 @@ class AddObject extends Component {
     }
     return (
       <ScrollView>
-        <Text style={{ fontSize: 24, color: "#4A4A4A", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryRegular }}>
+        <Text style={{ fontSize: 30, color: "#3f4968", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium}}>
           Dodaj novi objekat
         </Text>
-        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryBold }}>
-          Osnovni podaci objekta
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 30, fontFamily: fonts.primaryMedium }}>
+          Naziv objekta        
         </Text>
-        <TextField label="Naziv objekta" containerStyle={{ marginLeft: 16, marginRight: 16, marginTop: 24 }} />
-
+        <TextField label="npr. Restoran Vanilla" containerStyle={{ marginLeft: 16, marginRight: 16 }} />
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium }}>
+          Odabir grada       
+        </Text>
         <Dropdown
           containerStyle={{ marginLeft: 16, marginRight: 16 }}
           label='Grad'
           data={this.state.cities}
         />
+          <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium }}>
+          Adresa      
+        </Text>
         <TextField label="Adresa" containerStyle={{ marginLeft: 16, marginRight: 16 }} />
-
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium }}>
+          Adresa  na karti    
+        </Text>
         <MapView
-          style={{ width: Dimensions.get('screen').width - 32, height: 240, marginBottom: 16, marginLeft: 16, marginTop: 30 }}
+          style={{ width: Dimensions.get('screen').width , height: 240, marginBottom: 16, marginTop: 16 }}
           initialRegion={{
             latitude: 43.342666,
             longitude: 17.8142463,
@@ -121,22 +128,52 @@ class AddObject extends Component {
           }}
         >
         </MapView>
+        <View
+          style={{
+            marginTop: 10,
+            borderBottomColor: '#D1D3D4',
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}
+        />
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16,  fontFamily: fonts.primaryMedium }}>
+          Kratki opis objekta
+        </Text>
+        <TextField label="Opis objekta" containerStyle={{ marginLeft: 16, marginRight: 16}} />
 
-        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryBold }}>
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium}}>
+          Kontakt podaci (potrebni za verifikaciju objekta)
+        </Text>
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium }}>
+          Email     
+        </Text>
+        <TextField label="Email" containerStyle={{ marginLeft: 16, marginRight: 16 }} />
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium }}>
+          Broj telefona     
+        </Text>
+        <TextField label="+387..." containerStyle={{ marginLeft: 16, marginRight: 16 }} />
+        <View
+          style={{
+            marginTop: 36,
+            borderBottomColor: '#D1D3D4',
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}
+        />
+
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium}}>
           Radno vrijeme
         </Text>
 
         <View style={{ marginLeft: 16, marginRight: 16, marginTop: 36 }}>
-          <CheckBox title="Ponedjeljak" containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0, marginLeft: 0 }} 
+          <CheckBox title="Ponedjeljak" textStyle={{fontFamily: fonts.primaryLight,fontSize:16}} containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0,  marginLeft: -10 }} 
           checked={this.state.checkPon} onPress={()=> { this.setState({checkPon: !this.state.checkPon}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
             <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
             />
@@ -144,96 +181,96 @@ class AddObject extends Component {
         </View>
 
         <View style={{ marginLeft: 16, marginRight: 16, marginTop: 32 }}>
-          <CheckBox title="Utorak" containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0, marginLeft: 0 }} 
+          <CheckBox title="Utorak" textStyle={{fontFamily: fonts.primaryLight,fontSize:16}} containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0,  marginLeft: -10 }} 
           checked={this.state.checkUto} onPress={()=> { this.setState({checkUto: !this.state.checkUto}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
             <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
             />
           </View>
         </View>
         <View style={{ marginLeft: 16, marginRight: 16, marginTop: 32 }}>
-          <CheckBox title="Srijeda" containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0, marginLeft: 0 }} 
+          <CheckBox title="Srijeda" textStyle={{fontFamily: fonts.primaryLight,fontSize:16}} containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0,  marginLeft: -10 }} 
           checked={this.state.checkSri} onPress={()=> { this.setState({checkSri: !this.state.checkSri}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
             />
           </View>
         </View>
         <View style={{ marginLeft: 16, marginRight: 16, marginTop: 32 }}>
-          <CheckBox title="Četvrtak" containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0, marginLeft: 0 }} 
+          <CheckBox title="Četvrtak" textStyle={{fontFamily: fonts.primaryLight,fontSize:16}} containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0, marginLeft: -10 }} 
           checked={this.state.checkCet} onPress={()=> { this.setState({checkCet: !this.state.checkCet}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
             />
           </View>
         </View>
         <View style={{ marginLeft: 16, marginRight: 16, marginTop: 32 }}>
-          <CheckBox title="Petak" containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0, marginLeft: 0 }} 
+          <CheckBox title="Petak" textStyle={{fontFamily: fonts.primaryLight,fontSize:16}} containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0,  marginLeft: -10 }} 
           checked={this.state.checkPet} onPress={()=> { this.setState({checkPet: !this.state.checkPet}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
             />
           </View>
         </View>
         <View style={{ marginLeft: 16, marginRight: 16, marginTop: 32 }}>
-          <CheckBox title="Subota" containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0, marginLeft: 0 }} 
+          <CheckBox title="Subota" textStyle={{fontFamily: fonts.primaryLight,fontSize:16}} containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0,  marginLeft: -10 }} 
           checked={this.state.checkSub} onPress={()=> { this.setState({checkSub: !this.state.checkSub}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50}}
               label='Od'
               data={time}
             />
             <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
             />
           </View>
         </View>
         <View style={{ marginLeft: 16, marginRight: 16, marginTop: 32 }}>
-          <CheckBox title="Nedjelja" containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0, marginLeft: 0 }} 
-          checked={this.state.checkNed} onPress={()=> { this.setState({checkNed: !this.state.checkNed}) }}/>
+          <CheckBox title="Nedjelja"textStyle={{fontFamily: fonts.primaryLight,fontSize:16}} containerStyle={{ backgroundColor: "#ffffff", borderWidth: 0,  marginLeft: -10 }} 
+          checked={this.state.checkNed} checkedColor={"#3f4968"} onPress={()=> { this.setState({checkNed: !this.state.checkNed}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
-              containerStyle={{ width: Dimensions.get('screen').width / 2 - 24 }}
+              containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
             />
@@ -246,31 +283,10 @@ class AddObject extends Component {
             borderBottomWidth: StyleSheet.hairlineWidth,
           }}
         />
-        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryBold }}>
-          Kratki opis objekta
-        </Text>
-        <TextField label="Opis objekta" containerStyle={{ marginLeft: 16, marginRight: 16, marginTop: 24 }} />
-        <View
-          style={{
-            marginTop: 36,
-            borderBottomColor: '#D1D3D4',
-            borderBottomWidth: StyleSheet.hairlineWidth,
-          }}
-        />
-        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryBold }}>
-          Kontakt podaci (potrebni za verifikaciju objekta)
-        </Text>
-        <TextField label="Email" containerStyle={{ marginLeft: 16, marginRight: 16, marginTop: 24 }} />
-        <TextField label="Broj telefona" containerStyle={{ marginLeft: 16, marginRight: 16, marginTop: 24 }} />
-        <View
-          style={{
-            marginTop: 36,
-            borderBottomColor: '#D1D3D4',
-            borderBottomWidth: StyleSheet.hairlineWidth,
-          }}
-        />
+        
+     
 
-        <CheckBox title="Prihvaćam opće uvjete i slažem se sa svim pravilima" containerStyle={{ paddingLeft: 16, paddingRight: 16, backgroundColor: "#ffffff", borderWidth: 0, marginLeft: 0 }} 
+        <CheckBox title="Prihvaćam opće uvjete i slažem se sa svim pravilima"textStyle={{fontFamily: fonts.primaryLight,fontSize:16,color:"rgba(63, 73, 104, 0.8)"}} containerStyle={{ paddingLeft: 16, paddingRight: 16, backgroundColor: "#ffffff", borderWidth: 0, marginLeft: 0 }} 
         checked={this.state.checkUslovi} onPress={()=> { this.setState({checkUslovi: !this.state.checkUslovi}) }}/>
         <View style={{ marginLeft: 16, marginTop: 16, marginBottom: 46 }}>
           <TouchableOpacity onPress={()=>{
@@ -283,9 +299,9 @@ class AddObject extends Component {
             }
             
             }}>
-            <View style={{ height: 56, borderColor: "#0C8BB2", backgroundColor: "#0C8BB2", borderWidth: 1, borderRadius: 4, display: "flex", flexDirection: "row", justifyContent: "center", width: Dimensions.get('screen').width - 32 }}>
-              <Text style={{ color: "#ffffff", fontSize: 16, marginTop: 16, marginLeft: 16, fontFamily: fonts.primaryBold }}>
-                DODAJ OBJEKAT
+            <View style={{ height: 51, borderColor: "#0C8BB2", backgroundColor: "#2cc2f7", borderWidth: 1, borderRadius: 4, display: "flex", flexDirection: "row", justifyContent: "center", width:196 }}>
+              <Text style={{ color: "#ffffff", fontSize: 16, marginTop: 16, marginLeft: 16, fontFamily: fonts.primaryMedium}}>
+                Dodaj objekat
                  </Text>
             </View>
           </TouchableOpacity>

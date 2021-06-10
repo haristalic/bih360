@@ -5,8 +5,7 @@ import {
   StyleSheet,
   Button,
   Image
-} from 'react-native';
-
+} from 'react-native'
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { Ionicons, MaterialIcons,Feather, Entypo  } from '@expo/vector-icons';
@@ -82,17 +81,6 @@ const TABS = {
       ),
     },
   },
-  Galerija: {
-    screen: GalleryScreen,
-    navigationOptions: {
-      header: (
-        <View style={styles.headerContainer}>
-          <MaterialIcons name="photo-library" size={24} color="#9B9B9B" />
-          <Text style={styles.headerCaption}>Galerija</Text>
-        </View>
-      ),
-    },
-  },
   Virtual: {
     screen: VirtualScreen,
     navigationOptions: {
@@ -128,18 +116,10 @@ export default class DynamicTabNavigator extends Component {
     tabs.Info = TABS.Info;
     console.log(location);
       tabs.Cijenik = TABS.Cijenik;
-  
-    if (location.events && location.events.length > 0) {
       tabs.Događaji = TABS.Događaji;
-    }
-    if (location.galleries && location.galleries.length > 0) {
-      tabs.Galerija = TABS.Galerija;
-    }
       tabs.Video = TABS.Video
-   
-    if (location.url360 && location.url360.length > 0) {
       tabs.Virtual = TABS.Virtual;
-    }
+ 
 
     return createBottomTabNavigator(
       tabs,

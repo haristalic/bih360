@@ -65,24 +65,37 @@ class EventScreen extends Component {
     const groupedDataFeatured = GridRow.groupByRows(copyFeatured, 2);
     const getBackgroundColor =
     current_day_hours && this.isLocationOpen(current_day_hours)
-      ? "#1DB7A3"
-      : "#F6697A";
-    return (
-      <ScrollView>
-        <View style={styles.itemOneImageContainer}>
-          <View style={styles.naslovContainer}>
-            <View style={{  alignContent: "center", justifyContent: "space-around" }}>
-            </View>
-            <View style={{marginLeft:20,marginTop:20 }}> 
-            <View style={{marginBottom:10}}>
-                <Text style={{ fontSize: 30, color: "#3f4968", fontFamily: fonts.primaryMedium }}>
+    ? "#1fdc37"
+    : "#F6697A";
+    return ( 
+      <View style={{flex:1}}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" , marginLeft: 20,
+          }}
+          >
+            {/**comentar */}
+            <View>
+              <View style={{ marginBottom: 10, marginTop: 20 }}>
+                <Text
+                  style={{
+                    fontSize: 34,
+                    color: "#032B43",
+                    fontFamily: fonts.primaryLight,
+                  }}
+                >
                   {item.title}
                 </Text>
               </View>
-            <View
+              <View
                 style={{
-                  backgroundColor: getBackgroundColor, width: 93,borderRadius: 3, padding: 5,overflow: "hidden",
-                  textAlign: "center",alignItems: "center",marginBottom: 10,
+                  backgroundColor: getBackgroundColor,
+                  width: 93,
+                  borderRadius: 3,
+                  padding: 5,
+                  overflow: "hidden",
+                  textAlign: "center",
+                  alignItems: "center",
+                  marginBottom: 20,
                 }}
               >
                 {current_day_hours && this.isLocationOpen(current_day_hours) ? (
@@ -95,10 +108,9 @@ class EventScreen extends Component {
                   </Text>
                 )}
               </View>
-             
             </View>
           </View>
-          <ScrollView>
+         {(location.events && location.events.length > 0)?( <ScrollView>
             <FlatList
               keyExtractor={item =>
                 item.id
@@ -109,8 +121,13 @@ class EventScreen extends Component {
             ></FlatList>
           </ScrollView>
 
-        </View>
-      </ScrollView>
+     ):(
+     <View style={{alignItems: 'center',
+     justifyContent: 'center',flex:1}}>
+           <Image source={require('../../../assets/empty-box-img.png')} style={{ width:258,height:173,marginBottom:40}} />  
+           <Text style={{fontSize:20,lineHeight:35, color:'#3f4968',  fontFamily: fonts.primaryMedium,}}>Izabrana rubrika je{"\n"} trenutno prazna</Text>   
+         </View>)} 
+       </View>
     );
   }
 

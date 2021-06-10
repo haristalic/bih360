@@ -128,33 +128,6 @@ class PriceScreen extends Component {
           </View>
         {(location.prices)?(
         <View style={styles.itemOneImageContainer}>
-          <Image style={styles.itemOneImage} source={{ uri: location.images && location.images[0] ? location.images[0].content_url : location.image ? location.image.content_url : "" }} />
-          <View style={styles.naslovContainer}>
-            <View style={{ width: 80, height: 80, alignContent: "center", justifyContent: "space-around" }}>
-              <View style={{ height: 63, width: 63, backgroundColor: "#ffffff", borderRadius: 32, }}>
-                <Image style={styles.naslovLogo} source={{ uri: location.logo ? location.logo.content_url : location.images && location.images[0] ? location.images[0].content_url : "" }} />
-
-              </View>
-            </View>
-            <View style={{ width: Dimensions.get('window').width - 116, height: 80, display: "flex", flexDirection: 'column', justifyContent: "space-around" }}>
-              <View style={{ flexDirection: "row", justifyContent: 'space-between', }}>
-                <Text style={{ fontSize: 13, color: "#032B43" }}>{item.categories.length > 0 ? item.categories[0].title : ""}</Text>
-
-                {current_day_hours && this.isLocationOpen(current_day_hours) ? (
-                  <Text style={{ fontSize: 13, color: "#1DB7A3", textAlign: "right" }}>
-                    Otvoreno
-                </Text>) :
-                  (<Text style={{ fontSize: 13, color: "#F6697A", textAlign: "right" }}>
-                    Zatvoreno
-                  </Text>)}
-              </View>
-              <View>
-                <Text style={{ fontSize: 24, color: "#032B43", fontFamily: fonts.primaryBold }}>
-                  {item.title}
-                </Text>
-              </View>
-            </View>
-          </View>
           <View
             style={{
               borderBottomColor: '#D1D3D4',
@@ -162,11 +135,7 @@ class PriceScreen extends Component {
             }}
           />
 
-          <View style={{ marginTop: 12, marginLeft: 16 }}>
-            <Text style={styles.itemCijenik} numberOfLines={1}>
-              Cijenik
-            </Text>
-          </View>
+         
           <ScrollView>
             <FlatList
               keyExtractor={item =>
@@ -195,13 +164,15 @@ class PriceScreen extends Component {
       <View>
         <View style={{ borderRadius: 4, overflow: 'hidden' }}>
           <View style={styles.itemOneContent}>
-            <View style={{ marginTop: 12, height: 21, marginLeft: 16, marginRight: 16, width: Dimensions.get('screen').width - 32, display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={{ marginTop: 12, height: 30, marginLeft: 16, marginRight: 16, width: Dimensions.get('screen').width - 32, display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
               <Text style={styles.itemOneTitle} numberOfLines={1}>
                 {item.title}
               </Text>
-              <Text style={styles.itemOneTitle} numberOfLines={1}>
+              <View style={{backgroundColor:"#f8f8f8",borderRadius:22}}>
+              <Text style={{marginTop: 8,fontSize:14,color:"#3f4968", padding:3,fontFamily: fonts.primaryMedium}} numberOfLines={1}>
                 {item.price} KM
               </Text>
+              </View>
             </View>
             <View style={{ marginTop: 8, height: 18 }}>
               <Text style={styles.itemOnePrice} numberOfLines={1}>
@@ -357,10 +328,9 @@ const styles = StyleSheet.create({
   },
   itemOneTitle: {
     marginTop: 8,
-    fontFamily: fonts.primaryBold,
-    fontSize: 16,
-    color: "#4A4A4A",
-    height: 19
+    fontFamily: fonts.primaryMedium,
+    fontSize: 20,
+    color: "#3f4968",
   },
 
   itemCijenik: {
@@ -377,13 +347,14 @@ const styles = StyleSheet.create({
     height: 18
   },
   itemOnePrice: {
-    fontFamily: fonts.primaryRegular,
+    fontFamily: fonts.primaryLight,
     fontSize: 13,
-    marginLeft: 16
+    marginLeft: 16,
+    color:"#3f4968"
   },
   itemPonuda: {
     fontFamily: fonts.primaryRegular,
-    fontSize: 16,
+    fontSize: 14,
     marginLeft: 12
   },
   itemOneRow: {

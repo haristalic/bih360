@@ -160,8 +160,8 @@ class InfoScreen extends Component {
               }}
             />
           )}
-<View >
-          <View style={{ marginTop: 24, marginLeft: 20, marginBottom: 16,backgroundColor:'' }}>
+<View style={{backgroundColor:"#f2f5f9"}} >
+          <View style={{ marginTop: 24, marginLeft: 20,marginRight:20 ,padding:10,marginBottom: 16,backgroundColor:'#ffffff' }}>
             <Text style={{fontSize:20,color:"#3f4968"}}>Kategorija</Text>
             {item.categories.length >0 ?  (<View style={{ width:150,height:34,padding:15,backgroundColor:'rgba(63, 73, 104, 0.8)', 
                  justifyContent: 'center',padding:15,
@@ -331,26 +331,27 @@ class InfoScreen extends Component {
           ) : (
             <View />
           )}
-            <Text
+           </View>
+          </View>
+<View style={{backgroundColor:"#f2f5f9"}}>
+          <View
+            style={{
+              marginLeft: 20,
+              marginRight: 20, marginTop:20,
+              textAlign: "justifyContent",backgroundColor:"#ffffff",padding:10,marginBottom:10
+                     }}
+          > 
+          <Text
               style={{
                 fontSize: 30,
                 color: "#3f4968",
-                marginTop:30,
+               
+
                 fontFamily: fonts.primaryMedium,
               }}
             >
               O nama
-            </Text></View>
-          </View>
-
-          <View
-            style={{
-              marginLeft: 20,
-              marginRight: 20,
-              textAlign: "justifyContent",
-              color: "#032B43",
-            }}
-          >
+            </Text>
             <HTML
               style={{ marginTop: 12 }}
               html={"<k>" + item.description+ "</k>"}
@@ -379,7 +380,7 @@ class InfoScreen extends Component {
             />
             
           </View>
-
+</View>
         
         </View>
         <Dialog
@@ -439,7 +440,6 @@ class InfoScreen extends Component {
         </Dialog>
         <View
           style={{
-            marginTop: 16,
             borderBottomColor: "#D1D3D4",
             borderBottomWidth: StyleSheet.hairlineWidth,
           }}

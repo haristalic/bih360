@@ -46,16 +46,26 @@ const stackNav = createStackNavigator({
     screen: DetailScreen,
     navigationOptions: ({navigation}) => ({
       headerTitle: (
-        <Text style={{color:"#ffffff", fontSize:18}}>{navigation.state.params?navigation.state.params.title:""}</Text>
+        <Image source={{ uri: logowhiteicon }}  resizeMode="contain" style={{ height: 68, width: 100, flex: 1}} />
+      ), headerTitleStyle: { fontWeight: 'bold', alignSelf: 'center', textAlign: 'center', justifyContent: 'center' },
+      headerRight: (<TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <IOSIcon name="ios-menu" color="#ffffff" size={30} style={{ marginHorizontal: 15 }} />
+      </TouchableOpacity>
       ),
+      backgroundColor: "#0091D4",
     }),
   },
   AddObject: {
     screen: AddObject,
     navigationOptions: ({navigation}) => ({
       headerTitle: (
-        <Text style={{color:"#ffffff", fontSize:18}}>{navigation.state.params?navigation.state.params.title:""}</Text>
+        <Image source={{ uri: logowhiteicon }}  resizeMode="contain" style={{ height: 68, width: 100, flex: 1}} />
+      ), headerTitleStyle: { fontWeight: 'bold', alignSelf: 'center', textAlign: 'center', justifyContent: 'center' },
+      headerRight: (<TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <IOSIcon name="ios-menu" color="#ffffff" size={30} style={{ marginHorizontal: 15 }} />
+      </TouchableOpacity>
       ),
+      backgroundColor: "#0091D4",
     }),
   },
   AboutScreen: {

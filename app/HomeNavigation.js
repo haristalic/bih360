@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Font } from 'expo-font';
 
+import { FontAwesome5 } from '@expo/vector-icons'; 
 
 import ObjectsScreen from './home/ObjectsScreen'
 import EventsScreen from './home/EventsScreen'
@@ -90,18 +90,18 @@ export default createBottomTabNavigator(
           let iconSource;
           switch (routeName) {
             case 'Objekti':
-              iconSource = "business";
+              iconSource = "building";
               break;
           
             case 'Blog':
-              iconSource = "textsms";
+              iconSource = "blog";
               break;
             default:
-              iconSource = "textsms";
+              iconSource = "blog";
           }
           return (
             <View style={styles.tabBarItemContainer}>
-              <MaterialIcons name={iconSource} size={24} color={focused?"#ffffff":"#376894"} />
+              <FontAwesome5 name={iconSource} size={24} color={focused?"#ffffff":"#376894"} />
             </View>
           );
         },
