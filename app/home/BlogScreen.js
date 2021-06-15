@@ -18,7 +18,6 @@ import {
   WebView,
 } from "react-native";
 
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import { Dropdown } from "react-native-material-dropdown";
 
@@ -31,6 +30,8 @@ import fonts from "../../styles/fonts";
 
 import moment from "moment";
 import Dialog, { DialogContent } from "react-native-popup-dialog";
+import { Ionicons, MaterialIcons,AntDesign } from '@expo/vector-icons';
+
 
 class BlogScreen extends Component {
   constructor(props) {
@@ -330,6 +331,9 @@ class BlogScreen extends Component {
                 }}
                 label="Filteri"
                 data={this.state.categories}
+                renderAccessory={()=> <View style={{}}>
+   <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+         </View>}
                 onChangeText={(value, index, data) => {
                   this.onChangeCategoryPress(data[index]);
                 }}

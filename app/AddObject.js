@@ -27,7 +27,7 @@ import {
 import {
   CheckBox
 } from 'react-native-elements'
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons,AntDesign } from '@expo/vector-icons';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -42,6 +42,7 @@ import Dialog, { DialogContent } from 'react-native-popup-dialog';
 
 import MapView from 'react-native-maps';
 import Marker from 'react-native-maps';
+
 const data = [{
   value: '01:00',
 }, {
@@ -107,6 +108,9 @@ class AddObject extends Component {
           Odabir grada       
         </Text>
         <Dropdown
+        renderAccessory={()=> <View style={{}}>
+        <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+              </View>}
           containerStyle={{ marginLeft: 16, marginRight: 16 }}
           label='Grad'
           data={this.state.cities}
@@ -168,11 +172,17 @@ class AddObject extends Component {
           checked={this.state.checkPon} onPress={()=> { this.setState({checkPon: !this.state.checkPon}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
             <Dropdown
+            renderAccessory={()=> <View style={{}}>
+            <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                  </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
+            renderAccessory={()=> <View style={{}}>
+            <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                  </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
@@ -185,11 +195,17 @@ class AddObject extends Component {
           checked={this.state.checkUto} onPress={()=> { this.setState({checkUto: !this.state.checkUto}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
             <Dropdown
+            renderAccessory={()=> <View style={{}}>
+            <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                  </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
+            renderAccessory={()=> <View style={{}}>
+            <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                  </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
@@ -201,11 +217,17 @@ class AddObject extends Component {
           checked={this.state.checkSri} onPress={()=> { this.setState({checkSri: !this.state.checkSri}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
+          renderAccessory={()=> <View style={{}}>
+          <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
+            renderAccessory={()=> <View style={{}}>
+            <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                  </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
@@ -217,11 +239,17 @@ class AddObject extends Component {
           checked={this.state.checkCet} onPress={()=> { this.setState({checkCet: !this.state.checkCet}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
+          renderAccessory={()=> <View style={{}}>
+          <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
+            renderAccessory={()=> <View style={{}}>
+            <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                  </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
@@ -233,11 +261,17 @@ class AddObject extends Component {
           checked={this.state.checkPet} onPress={()=> { this.setState({checkPet: !this.state.checkPet}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
+          renderAccessory={()=> <View style={{}}>
+          <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
+            renderAccessory={()=> <View style={{}}>
+            <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                  </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
@@ -249,11 +283,17 @@ class AddObject extends Component {
           checked={this.state.checkSub} onPress={()=> { this.setState({checkSub: !this.state.checkSub}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
+          renderAccessory={()=> <View style={{}}>
+          <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50}}
               label='Od'
               data={time}
             />
             <Dropdown
+            renderAccessory={()=> <View style={{}}>
+            <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                  </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
@@ -265,11 +305,17 @@ class AddObject extends Component {
           checked={this.state.checkNed} checkedColor={"#3f4968"} onPress={()=> { this.setState({checkNed: !this.state.checkNed}) }}/>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
+          renderAccessory={()=> <View style={{}}>
+          <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
             />
             <Dropdown
+            renderAccessory={()=> <View style={{}}>
+            <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                  </View>}
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}

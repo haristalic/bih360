@@ -48,6 +48,7 @@ class SideMenu extends Component {
     navigate({
       routeName: screen,
     });
+    
   };
   render() {
     if (!this.state.fontLoaded) {

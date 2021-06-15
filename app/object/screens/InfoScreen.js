@@ -141,7 +141,8 @@ class InfoScreen extends Component {
               images={images}
               style={styles.itemOneImage}
               customSlide={({ index, item, style, width }) => (
-                // It's important to put style here because it's got offset inside
+                // It's important to put style here because it's got offset inside 
+                // ui for img open =======================
                 <View key={index} style={[style]}>
                   <Image style={styles.itemOneImage} source={{ uri: item }} />
                 </View>

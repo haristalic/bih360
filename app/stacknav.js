@@ -32,13 +32,14 @@ const stackNav = createStackNavigator({
   Main: {
     screen: HomeNavigationScreen,
     navigationOptions: ({navigation}) => ({
+
       headerTitle: (
-        <Image source={{ uri: logowhiteicon }}  resizeMode="contain" style={{ height: 68, width: 100, flex: 1}} />
-      ), headerTitleStyle: { fontWeight: 'bold', alignSelf: 'center', textAlign: 'center', justifyContent: 'center' },
+        <Image source={{ uri: logowhiteicon }}  resizeMode="contain" style={{ height: 68,  flex: 1}} />
+      ), headerTitleStyle: { fontWeight: 'bold', },
       headerRight: (<TouchableOpacity onPress={() => navigation.openDrawer()}>
         <IOSIcon name="ios-menu" color="#ffffff" size={30} style={{ marginHorizontal: 15 }} />
       </TouchableOpacity>
-      ),headerLeft:null,
+      ),headerLeft:(<View></View>),
       backgroundColor: "#0091D4",
     }),
   },
@@ -48,10 +49,9 @@ const stackNav = createStackNavigator({
       headerTitle: (
         <Image source={{ uri: logowhiteicon }}  resizeMode="contain" style={{ height: 68, width: 100, flex: 1}} />
       ), headerTitleStyle: { fontWeight: 'bold', alignSelf: 'center', textAlign: 'center', justifyContent: 'center' },
-      headerRight: (<TouchableOpacity onPress={() => navigation.openDrawer()}>
-        <IOSIcon name="ios-menu" color="#ffffff" size={30} style={{ marginHorizontal: 15 }} />
-      </TouchableOpacity>
-      ),
+      headerRight: ()=> <TouchableOpacity onPress={() => navigation.openDrawer()}>
+      <IOSIcon name="ios-menu" color="#ffffff" size={30} style={{ marginHorizontal: 15 }} />
+    </TouchableOpacity>,
       backgroundColor: "#0091D4",
     }),
   },

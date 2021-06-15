@@ -265,17 +265,17 @@ class ObjectsScreen extends Component {
       flex:1,
       maxWidth: Dimensions.get('window').width / 3 - 10, // Width / 3 - (marginLeft and marginRight for the components)
       justifyContent: 'center',
-      alignItems:'center',   flexDirection:'row',
+      alignItems:'center',  padding:20,     flexDirection:'row',
       margin:5,
        borderRadius:22}}> 
                   {item.icon ==null ?(<View></View>):( <Image
           style={ {
-            width: 16,
+        width: 16,
             height: 14,
            marginRight:2
           }}          source={{uri:item.icon.content_url }}
         />)}  
-              <Text  style={{ fontSize: 14, color: "#ffffff",textAlign:'center' }}>{item.title}</Text>
+              <Text numberOfLines={1} style={{ fontSize: 14, color: "#ffffff",textAlign:'center' }}>{item.title}</Text>
            </View>
        
         
@@ -349,11 +349,14 @@ class ObjectsScreen extends Component {
         <Dropdown
               containerStyle={{ width: 350 , paddingLeft: 8, paddingRight: 8 }}
               label='Grad'
+              icon='chevron-down'
               data={this.state.cities}
               onChangeText={(value, index, data) => {
                 this.onChangeCityPress(data[index]);
               }}
-
+              renderAccessory={()=> <View style={{}}>
+              <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                    </View>}
             />
   <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Kategorija</Text>
 
@@ -364,16 +367,11 @@ class ObjectsScreen extends Component {
               onChangeText={(value, index, data) => {
                 this.onChangeCategoryPress(data[index]);
               }}
+              renderAccessory={()=> <View style={{}}>
+ <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+       </View>}
             />
-                {/* <ScrollView style={{width: 350 ,overflow:"scroll"}}>
-  
-  <FlatList
-  numColumns={3}
-   data={this.state.cat}
-           renderItem={ticketItem}
-       
-  />
-            </ScrollView> */}
+          
 
           </View>
 
