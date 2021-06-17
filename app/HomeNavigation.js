@@ -67,7 +67,16 @@ export default createBottomTabNavigator(
         ),
       },
       },
-      
+         Događaji: {
+        screen: EventsScreen,
+        navigationOptions: {
+          header: (
+            <View style={styles.headerContainer}>
+              <Text style={styles.headerCaption}>Događaji</Text>
+            </View>
+          ),
+        },
+      },
 
       Blog: {
         screen: BlogScreen,
@@ -96,6 +105,10 @@ export default createBottomTabNavigator(
             case 'Blog':
               iconSource = "blog";
               break;
+              case 'Događaji':
+                iconSource = "calendar-alt";
+                break;
+           
             default:
               iconSource = "blog";
           }

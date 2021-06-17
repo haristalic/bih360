@@ -15,8 +15,9 @@ import {
   Platform,
   ImageBackground
 } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons,AntDesign } from '@expo/vector-icons';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -155,7 +156,10 @@ class EventsScreen extends Component {
       });
 
   };
-
+  ToggleClick = () => {
+      this.setState({ show: !this.state.show });
+      console.log(this.state.show );
+    }
   _onRefresh = () => {
     this.setState({ refreshing: true });
     this.loadAllData()
@@ -168,6 +172,7 @@ class EventsScreen extends Component {
         </View>
       )
     }
+  
 
     let data = [];
     this.state.cities.forEach(element => {
@@ -264,23 +269,56 @@ class EventsScreen extends Component {
               </View>
             </TouchableOpacity> */}
 
-            <Dropdown
-              containerStyle={{ width: Dimensions.get('window').width / 2 - 4, paddingLeft: 8, paddingRight: 8 }}
-              label='Gradddd'
+<View  style={{flexDirection:'column',marginLeft:10,marginRight:10,marginBottom:20}}>
+  <TouchableOpacity onPress={() =>this.ToggleClick() }>
+  <View style={{ marginTop:10,marginBottom: 10,width: 350 ,display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+              <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968"}} >
+                  Pretraga
+                </Text>        
+                
+                {this.state.show?(<AntDesign style={{justifyContent: "flex-end"}} name="up" size={20}  color="rgba(63, 73, 104, 0.8)" /> ):(
+                  <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" /> 
+                ) }   
+                                
+              </View>
+                
+   </TouchableOpacity>
+  {this.state.show?(
+          <View>
+            <TextInput 	style={{width: 350, paddingLeft: 8, paddingRight: 16 }}  placeholder="Pretraga..."/>
+ <Text  style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Odaberi grad</Text>
+  
+        <Dropdown
+              containerStyle={{ width: 350 , paddingLeft: 8, paddingRight: 8 }}
+              label='Grad'
+              icon='chevron-down'
               data={this.state.cities}
               onChangeText={(value, index, data) => {
                 this.onChangeCityPress(data[index]);
               }}
-
+              renderAccessory={()=> <View style={{}}>
+              <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                    </View>}
             />
+  <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Kategorija</Text>
+
             <Dropdown
-              containerStyle={{ width: Dimensions.get('window').width / 2 - 4, paddingLeft: 8, paddingRight: 16 }}
+              containerStyle={{ width: 350, paddingLeft: 8, paddingRight: 16 }}
               label='Kategorija'
               data={this.state.categories}
               onChangeText={(value, index, data) => {
                 this.onChangeCategoryPress(data[index]);
               }}
+              renderAccessory={()=> <View style={{}}>
+ <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+       </View>}
             />
+          
+
+          </View>
+
+        ):null}
+ </View>
             {/* <TouchableOpacity onPress={() => {
               this.setState({ visibleCategory: true });
             }}>
@@ -327,7 +365,6 @@ class EventsScreen extends Component {
         <View style={{ borderRadius: 4, overflow: 'hidden' }}>
           <View style={{ borderRadius: 8, overflow: 'hidden' }}>
             <ImageBackground style={styles.featuredImage} source={{ uri: item.images.length > 0 ? item.images[0].resized_image_url : "" }} >
-              <MaterialIcons style={{ margin: 8 }} name="stars" size={24} color="#ffffff" />
                    <View
               style={{
                 position: "absolute",bottom: 5,right: 5,backgroundColor: "#ffffff",

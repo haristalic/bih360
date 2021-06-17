@@ -311,8 +311,7 @@ class ObjectsScreen extends Component {
       >      
     
         <View style={styles.cardContainer}>
-          <View style={{    }}>
-       </View>
+      
       
           <View style={{ display: "flex", flexDirection: "row", width: Dimensions.get('window').width, backgroundColor: "#fff", marginTop:-16, marginBottom:-16 }}>
             {/* <TouchableOpacity onPress={() => {
@@ -461,7 +460,7 @@ class ObjectsScreen extends Component {
                 style={{
                   color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",padding:6 
                 }}
-              >{item.categories.length > 0 ? item.categories[0].title : "nema"}</Text>
+              >{item.categories.length > 0 ? item.categories[0].title : ""}</Text>
             </View>
                   </ImageBackground>
                 )}
@@ -469,22 +468,22 @@ class ObjectsScreen extends Component {
             </View>
             <View style={styles.itemOneContent}>
             
-              <Text style={styles.itemOneTitle} numberOfLines={1}>
+              <Text style={styles.itemOneTitle} >
                 {item.title}
               </Text>
-              <View style={{ display: "flex", flexDirection: "row", marginTop: 12, height: 18 }}>
+              <View style={{ display: "flex", flexDirection: "row", marginTop: 12,flex:1 }}>
               <Feather name="map-pin" size={16} color="rgba(63, 73, 104, 0.8)" />                       
-                <Text style={styles.itemOnePrice} numberOfLines={1}>
+                <Text style={styles.itemOnePrice}>
                   {item.address}
                 </Text>
-              </View>
-              <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
+              </View>{item.phone===""?(null):( <View style={{ display: "flex", flexDirection: "row", marginTop: 8,flex:1 }}>
               <AntDesign name="phone" size={16}  color="rgba(63, 73, 104, 0.8)" />                
-              <Text style={styles.itemOnePrice} numberOfLines={1}>
+              <Text style={styles.itemOnePrice}>
                   {item.phone}
                 </Text>
-              </View>
-              <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
+              </View>)}
+             
+              <View style={{ display: "flex", flexDirection: "row", marginTop: 8,flex:1 }}>
               <Ionicons name="time-outline" size={16} color="rgba(63, 73, 104, 0.8)" />               
                <Text style={styles.itemOnePrice} numberOfLines={1}>
                   {current_day_hours && (current_day_hours.from || current_day_hours.to) ?
@@ -591,20 +590,25 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#3f4968",
     width:600,
-    height: 19
+    height: 19,
+  
   },
   itemOneSubTitle: {
     fontFamily: fonts.primaryLight,
     fontSize: 13,
     color: '#4A4A4A',
     marginVertical: 3,
-    height: 18
+    height: 18,
+  
   },
   itemOnePrice: {
     fontFamily: fonts.primaryLight,
     fontSize: 13,
     marginLeft: 12,
-    color:"rgba(63, 73, 104, 0.8)"
+    color:"rgba(63, 73, 104, 0.8)",
+    width: 0,
+        flexGrow: 1,
+        flex: 1,
   },
   itemOneRow: {
     flexDirection: 'column',

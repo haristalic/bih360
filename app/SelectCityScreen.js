@@ -42,6 +42,7 @@ class SelectCityScreen extends Component {
     }, {
         contentComponent: SideMenu,
         drawerWidth: Dimensions.get('window').width - 120,
+        drawerPosition:"right"
       });
     const Navigation = createAppContainer(drawernav);
     this.state = {
