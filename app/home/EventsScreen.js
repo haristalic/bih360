@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
-import { Ionicons, MaterialIcons,AntDesign } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons,AntDesign,Feather  } from '@expo/vector-icons';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -164,6 +164,15 @@ class EventsScreen extends Component {
     this.setState({ refreshing: true });
     this.loadAllData()
   }
+  handelSearch = (text) =>{
+    // console.log(text);  
+    let format = text.toLowerCase();  
+    let filteredData = this.state.dataSource.filter(function (item) {
+     return item.title.toLowerCase().includes(format);
+   });
+   this.setState({filteredData: filteredData});
+    
+   }
   render() {
     if (this.state.isLoading) {
       return (
@@ -172,7 +181,7 @@ class EventsScreen extends Component {
         </View>
       )
     }
-  
+    
 
     let data = [];
     this.state.cities.forEach(element => {
@@ -208,54 +217,7 @@ class EventsScreen extends Component {
             onRefresh={this._onRefresh}
           />
         }>
-        <View style={styles.cardContainer}>
-          <Dialog style={{ marginLeft: 16, marginRight: 16 }}
-            visible={this.state.visibleLocation}
-            onTouchOutside={() => {
-              this.setState({ visibleLocation: false });
-            }}
-          >
-            <DialogContent style={{ paddingTop: 16, height: 250 }}>
-              <ScrollView style={{ height: 250 }}>
-                {this.state.cities.map((city, index) => {
-                  return (
-                    <TouchableOpacity onPress={() => {
-                      this.onChangeCityPress(city);
-                    }}>
-                      <Text style={{ color: "#4A4A4A", fontSize: 16, width: Dimensions.get("screen").width - 64, height: 32 }}>
-                        {city.name}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </ScrollView>
-
-            </DialogContent>
-          </Dialog>
-          <Dialog style={{ marginLeft: 16, marginRight: 16 }}
-            visible={this.state.visibleCategory}
-            onTouchOutside={() => {
-              this.setState({ visibleCategory: false });
-            }}
-          >
-            <DialogContent style={{ paddingTop: 16, height: 250 }}>
-              <ScrollView style={{ height: 250 }}>
-                {this.state.categories.map((city, index) => {
-                  return (
-                    <TouchableOpacity onPress={() => {
-                      this.onChangeCategoryPress(city);
-                    }}>
-                      <Text style={{ color: "#4A4A4A", fontSize: 16, width: Dimensions.get("screen").width - 64, height: 32 }}>
-                        {city.title}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </ScrollView>
-
-            </DialogContent>
-          </Dialog>
-          <View style={{ display: "flex", flexDirection: "row", width: Dimensions.get('window').width, backgroundColor: "#fff", marginTop:-16, marginBottom:-16 }}>
+     
             {/* <TouchableOpacity onPress={() => {
               this.setState({ visibleLocation: true });
             }}>
@@ -269,56 +231,6 @@ class EventsScreen extends Component {
               </View>
             </TouchableOpacity> */}
 
-<View  style={{flexDirection:'column',marginLeft:10,marginRight:10,marginBottom:20}}>
-  <TouchableOpacity onPress={() =>this.ToggleClick() }>
-  <View style={{ marginTop:10,marginBottom: 10,width: 350 ,display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-              <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968"}} >
-                  Pretraga
-                </Text>        
-                
-                {this.state.show?(<AntDesign style={{justifyContent: "flex-end"}} name="up" size={20}  color="rgba(63, 73, 104, 0.8)" /> ):(
-                  <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" /> 
-                ) }   
-                                
-              </View>
-                
-   </TouchableOpacity>
-  {this.state.show?(
-          <View>
-            <TextInput 	style={{width: 350, paddingLeft: 8, paddingRight: 16 }}  placeholder="Pretraga..."/>
- <Text  style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Odaberi grad</Text>
-  
-        <Dropdown
-              containerStyle={{ width: 350 , paddingLeft: 8, paddingRight: 8 }}
-              label='Grad'
-              icon='chevron-down'
-              data={this.state.cities}
-              onChangeText={(value, index, data) => {
-                this.onChangeCityPress(data[index]);
-              }}
-              renderAccessory={()=> <View style={{}}>
-              <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
-                    </View>}
-            />
-  <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Kategorija</Text>
-
-            <Dropdown
-              containerStyle={{ width: 350, paddingLeft: 8, paddingRight: 16 }}
-              label='Kategorija'
-              data={this.state.categories}
-              onChangeText={(value, index, data) => {
-                this.onChangeCategoryPress(data[index]);
-              }}
-              renderAccessory={()=> <View style={{}}>
- <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
-       </View>}
-            />
-          
-
-          </View>
-
-        ):null}
- </View>
             {/* <TouchableOpacity onPress={() => {
               this.setState({ visibleCategory: true });
             }}>
@@ -332,8 +244,7 @@ class EventsScreen extends Component {
               </View>
             </TouchableOpacity> */}
 
-          </View>
-        </View>
+        
         <View
        
         />
@@ -349,8 +260,9 @@ class EventsScreen extends Component {
             keyExtractor={item =>
               item.id
             }
-            style={{ backgroundColor: "#ffffff", display: "flex", flexDirection: "row" }}
-            data={copyFeatured}
+            style={{ backgroundColor: "#ffffff", display: "flex", flexDirection: "row",marginRight:16,marginLeft:16  
+          }}
+            data={ this.state.dataSource}
             renderItem={this.renderFeatured}
           ></FlatList>
         </ScrollView>
@@ -362,12 +274,13 @@ class EventsScreen extends Component {
     <View backgroundColor="#ffffff"
       style={styles.itemFeatured}>
       <TouchableOpacity key={item.id} onPress={() => this._openArticle(item.location)}>
-        <View style={{ borderRadius: 4, overflow: 'hidden' }}>
-          <View style={{ borderRadius: 8, overflow: 'hidden' }}>
-            <ImageBackground style={styles.featuredImage} source={{ uri: item.images.length > 0 ? item.images[0].resized_image_url : "" }} >
-                   <View
+      <View style={{ borderRadius: 4,width:Dimensions.get('window').width,  }}>
+          <View style={{ borderRadius: 8,width:Dimensions.get('window').width,  }}>
+            <Image  style={styles.featuredImage} source={{ uri: item.images.length > 0 ? item.images[0].content_url  : "" }}        >
+             </Image>      
+             <View
               style={{
-                position: "absolute",bottom: 5,right: 5,backgroundColor: "#ffffff",
+                position: "absolute",bottom: 5,right: 50,backgroundColor: "#ffffff",
                 borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center" ,   }}
             >
               <Text numberOfLines={1}
@@ -376,14 +289,13 @@ class EventsScreen extends Component {
                 }}
               >{item.type.name}</Text>
             </View>
-            </ImageBackground>
           </View>
           <View style={styles.itemOneContent}>
             <Text style={styles.itemOneTitle} numberOfLines={1}>
               {item.title}
             </Text>
             <View style={{ display: "flex", flexDirection: "row", marginTop: 12, height: 18 }}>
-              <MaterialIcons name="place" size={16} color="rgba(63, 73, 104, 0.8)" />
+            <Feather name="map-pin" size={16} color="rgba(63, 73, 104, 0.8)" />                       
               <Text style={styles.itemOnePrice} numberOfLines={1}>
                 {item.location != null ? item.location.address : ""}
               </Text>
@@ -409,12 +321,8 @@ class EventsScreen extends Component {
 
 const styles = StyleSheet.create({
   itemFeatured: {
-    width:350,
-    height: 289,
-    marginBottom: 5,
-    marginLeft:10,
-    marginRight:10
-    
+    marginBottom: 20,
+    borderRadius:8    
   },
   itemOneRow: {
     flexDirection: 'row',
@@ -470,9 +378,9 @@ const styles = StyleSheet.create({
     //width: Dimensions.get('window').width / 2 - 25,
   },
   featuredImage: {
-    height: 146,
-    borderRadius: 8
-    //width: Dimensions.get('window').width / 2 - 25,
+    height: 131,
+    borderRadius: 8,
+
   },
   objektiTitle: {
     marginLeft: 16,

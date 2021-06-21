@@ -87,7 +87,7 @@ class InfoScreen extends Component {
       <ScrollView>
         <View
           style={{
-            width: Dimensions.get("window").width - 116,
+            width: Dimensions.get("window").width - 20,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-around",
@@ -291,8 +291,9 @@ class InfoScreen extends Component {
               }}
             >
 <Feather name="facebook" size={16}  color="rgba(63, 73, 104, 0.8)" />              
-<Text style={styles.itemOnePrice} numberOfLines={1}>
-                {item.facebook}
+<Text style={styles.itemOnePrice} >
+                {item.facebook}  {item.facebook}
+
               </Text>
             </View>
           ) : (

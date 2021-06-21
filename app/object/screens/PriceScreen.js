@@ -164,12 +164,12 @@ class PriceScreen extends Component {
       <View>
         <View style={{ borderRadius: 4, overflow: 'hidden' }}>
           <View style={styles.itemOneContent}>
-            <View style={{ marginTop: 12, height: 30, marginLeft: 16, marginRight: 16, width: Dimensions.get('screen').width - 32, display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={{ marginTop: 12,  marginLeft: 16, marginRight: 16, width: Dimensions.get('screen').width - 32, display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
               <Text style={styles.itemOneTitle} numberOfLines={1}>
                 {item.title}
               </Text>
-              <View style={{backgroundColor:"#f8f8f8",borderRadius:22}}>
-              <Text style={{marginTop: 8,fontSize:14,color:"#3f4968", padding:3,fontFamily: fonts.primaryMedium}} numberOfLines={1}>
+              <View style={{backgroundColor:"#f8f8f8",borderRadius:22,paddingLeft:12,paddingRight:12}}>
+              <Text style={{fontSize:14,color:"#3f4968", fontFamily: fonts.primaryMedium, textAlign: 'center',marginTop:7}} numberOfLines={1}>
                 {item.price} KM
               </Text>
               </View>

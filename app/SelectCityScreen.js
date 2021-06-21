@@ -148,25 +148,23 @@ class SelectCityScreen extends Component {
   };
     return (
       <View style={styles.container}>
-        <View style={{flex:1}}>
+        <View >
    
-   <ImageBackground source={require('../assets/header-panorama.jpg')}resizeMode={"cover"} style={{flex:1}} >
+   <ImageBackground source={require('../assets/header-panorama.jpg')}resizeMode={"cover"} style={{ width:Dimensions.get("window").width}} >
      <View style={{display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", width: Dimensions.get('screen').width, height:68, }}>
        {/* <Image source={{ uri: logowhiteicon }} style={{ marginLeft: 16, marginTop: 40, height: 28, width: 100, }} /> */}
      </View>
-          <View style={{ display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", width: Dimensions.get('screen').width, marginTop: 29 }}>
+          <View style={{ display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", width: Dimensions.get('screen').width, marginTop: 5 }}>
      <Text style={{ fontFamily: "GTWalsheimProM", color: "#3f4968", fontWeight:"bold",fontSize:40, alignItems: "center", alignContent: "center" }}>
        Istraži 360BiH
          </Text>
    </View>
    <View style={{ display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", width: Dimensions.get('screen').width, marginLeft: 10,marginRight:10}}>
-     <Text style={{ fontFamily: "GTWalsheimProL", justifyContent: "center", display: "flex", textAlign: "center", color: "#3f4968", fontSize: 16,textAlign:"left" , marginLeft: 16, marginRight: 16, marginTop: 24,lineHeight:30 }}>
-       360BiH predstavlja novu vrstu oglašivačkog{"\n"} 
-       internetskog medija putem koje je moguća{"\n"}
-       promocija lokalnih sadržaja iz raznih sfera života.{"\n"}
-       Naš je primarni cilj, digitalnim putem pružiti novo{"\n"}
-        i drugačije korisničko iskustvo kroz nove vidove{"\n"} 
-        oglašavanja i različite vrste virtualnih šetnji kroz{"\n"}
+     <Text style={{ fontFamily: "GTWalsheimProL", justifyContent: "center", display: "flex", textAlign: "center", color: "#3f4968", fontSize: 16,textAlign:"left" , marginLeft: 16, marginRight: 16, marginTop: 24,lineHeight:30,paddingBottom:20 }}>
+       360BiH predstavlja novu vrstu oglašivačkog internetskog medija putem koje je moguća promocija lokalnih sadržaja iz raznih sfera života.
+       Naš je primarni cilj, digitalnim putem pružiti novo
+        i drugačije korisničko iskustvo kroz nove vidove 
+        oglašavanja i različite vrste virtualnih šetnji kroz
         prostor.
          </Text>
    </View >     
@@ -177,14 +175,12 @@ class SelectCityScreen extends Component {
       <Text style={{  marginTop: 16, marginLeft:20,  height: 56, color: "#3f4968" ,fontSize: 30, fontFamily: "GTWalsheimProM" }}>
          Odaberite grad
          </Text>
-      <SafeAreaView style={styles.container}>
   
 <FlatList
  data={this.state.cities}
          renderItem={ticketItem}
      
 />
-</SafeAreaView> 
 </View>
 </View>   
       </View>

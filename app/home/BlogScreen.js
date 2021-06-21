@@ -42,6 +42,7 @@ class BlogScreen extends Component {
       isLoadingCats: true,
       categories: [],
       dataSource: [],
+      categoriesFocused:false
     };
     this.state.visibleCategory = false;
     this.state.categoryName = "Filteri";
@@ -324,16 +325,24 @@ class BlogScreen extends Component {
               </View>
             </TouchableOpacity> */}
               <Dropdown
-                containerStyle={{
-                  width: Dimensions.get("window").width,
-                  paddingLeft: 2,
-                  paddingRight: 30,
-                }}
-                label="Filteri"
+              containerStyle={{backgroundColor:this.state.categoriesFocused?"#f2f5f9":"#ffffff", borderColor:'#f2f5f9',borderWidth: 1, width: Dimensions.get("window").width-30 , paddingLeft: 8, paddingRight: 8 }}
+
                 data={this.state.categories}
                 renderAccessory={()=> <View style={{}}>
    <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
          </View>}
+           itemPadding={5}
+           fontSize={16}
+           textColor={'rgba(63, 73, 104, 0.8)'}
+           inputContainerStyle={{ borderBottomColor: 'transparent' }}
+           pickerStyle={{borderColor:'transparent',borderWidth: 1,width: Dimensions.get("window").width-50,marginLeft: 9, paddingRight: 8  }} 
+           dropdownPosition={-4} 
+           dropdownOffset={{top: 10, bottom: -8}}
+           itemPadding={10}
+           fontSize={16}
+           onFocus={()=> this.setState({categoriesFocused:true})}
+           onBlur={() => this.setState({categoriesFocused:false})}          
+           value="Lifestyle"
                 onChangeText={(value, index, data) => {
                   this.onChangeCategoryPress(data[index]);
                 }}

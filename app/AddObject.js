@@ -63,6 +63,7 @@ class AddObject extends Component {
       checkSub: false,
       checkNed: false,
       checkUslovi: false,
+      marker:null
     }
   }
   componentDidMount() {
@@ -80,6 +81,32 @@ class AddObject extends Component {
       .catch((error) => {
         console.error(error);
       });
+  }
+  onMapPress(e) {
+    alert("coordinates:" + JSON.stringify(e.nativeEvent.coordinate));
+
+    this.setState({
+      marker: [
+        {
+          coordinate: e.nativeEvent.coordinate
+        }
+      ]
+    });
+  }
+
+  handleMarkerPress(event) {
+    const markerID = event.nativeEvent.identifier;
+    alert(markerID);
+  }
+  onChangeCityPress(value) {
+    this.state.city = "" + value.id;
+    this.state.cityName = "" + value.name;
+    this.setState(previousState => (
+      { city: "" + value.id, cityName: "" + value.name, visibleLocation: false }
+    ))
+    this.loadAllData();
+    this.setState({ dataSource: [] })
+    this.prepareForRender();
   }
   render() {
     var time = []
@@ -100,25 +127,36 @@ class AddObject extends Component {
         <Text style={{ fontSize: 30, color: "#3f4968", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium}}>
           Dodaj novi objekat
         </Text>
-        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 30, fontFamily: fonts.primaryMedium }}>
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 30,marginBottom:10, fontFamily: fonts.primaryMedium }}>
           Naziv objekta        
         </Text>
-        <TextField label="npr. Restoran Vanilla" containerStyle={{ marginLeft: 16, marginRight: 16 }} />
+        <View></View>
+        <TextInput placeholder="npr. Restoran Vanilla" style={{ width: Dimensions.get("window").width-50, padding:8,marginLeft: 16, marginRight: 16,borderWidth:1,borderColor:'#f2f5f9'}} />
         <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium }}>
           Odabir grada       
         </Text>
         <Dropdown
-        renderAccessory={()=> <View style={{}}>
-        <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
-              </View>}
-          containerStyle={{ marginLeft: 16, marginRight: 16 }}
-          label='Grad'
-          data={this.state.cities}
-        />
-          <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium }}>
+              containerStyle={{ width: Dimensions.get("window").width-50 , paddingLeft: 8, paddingRight: 8,marginLeft:10 }}
+              data={this.state.cities}
+              label="Grad"
+              onChangeText={(value, index, data) => {
+                this.onChangeCityPress(data[index]);
+              }} 
+              dropdownPosition={-5}
+              itemPadding={5}
+              fontSize={16}
+              textColor={'rgba(63, 73, 104, 0.8)'}
+              inputContainerStyle={{ borderBottomColor: 'transparent' }}
+              pickerStyle={{borderColor:'transparent',borderWidth: 1,width: Dimensions.get("window").width-50,marginLeft: 8, paddingRight: 8  }} 
+                          
+              renderAccessory={()=> <View >
+              <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.75)" />
+                    </View>}
+            />
+          <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium,marginBottom:10, }}>
           Adresa      
         </Text>
-        <TextField label="Adresa" containerStyle={{ marginLeft: 16, marginRight: 16 }} />
+        <TextInput placeholder="Adresa" style={{ width: Dimensions.get("window").width-50, padding:8,marginLeft: 16, marginRight: 16,borderWidth:1,borderColor:'#f2f5f9'}} />
         <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium }}>
           Adresa  na karti    
         </Text>
@@ -130,7 +168,11 @@ class AddObject extends Component {
             latitudeDelta: 0.0522,
             longitudeDelta: 0.0221,
           }}
-        >
+          onPress={(e) => this.setState({ marker: e.nativeEvent.coordinate })}>
+          {
+                this.state.marker &&
+                <MapView.Marker coordinate={this.state.marker} />
+          }
         </MapView>
         <View
           style={{
@@ -139,27 +181,26 @@ class AddObject extends Component {
             borderBottomWidth: StyleSheet.hairlineWidth,
           }}
         />
-        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16,  fontFamily: fonts.primaryMedium }}>
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16,  fontFamily: fonts.primaryMedium,marginBottom:10 }}>
           Kratki opis objekta
         </Text>
-        <TextField label="Opis objekta" containerStyle={{ marginLeft: 16, marginRight: 16}} />
+        <TextInput placeholder="Opis" style={{ width: Dimensions.get("window").width-50, padding:8,marginLeft: 16, marginRight: 16,borderWidth:1,borderColor:'#f2f5f9'}} />
 
         <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium}}>
           Kontakt podaci (potrebni za verifikaciju objekta)
         </Text>
-        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium }}>
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium,marginBottom:10 }}>
           Email     
         </Text>
-        <TextField label="Email" containerStyle={{ marginLeft: 16, marginRight: 16 }} />
-        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium }}>
+        <TextInput placeholder="Email" style={{ width: Dimensions.get("window").width-50, padding:8,marginLeft: 16, marginRight: 16,borderWidth:1,borderColor:'#f2f5f9'}} />
+        <Text style={{ fontSize: 18, color: "#032B43", marginLeft: 16, marginTop: 16, fontFamily: fonts.primaryMedium,marginBottom:10 }}>
           Broj telefona     
         </Text>
-        <TextField label="+387..." containerStyle={{ marginLeft: 16, marginRight: 16 }} />
+        <TextInput placeholder="+387.." style={{ width: Dimensions.get("window").width-50, padding:8,marginLeft: 16, marginRight: 16,borderWidth:1,borderColor:'#f2f5f9'}} />
         <View
           style={{
             marginTop: 36,
-            borderBottomColor: '#D1D3D4',
-            borderBottomWidth: StyleSheet.hairlineWidth,
+        
           }}
         />
 
@@ -178,6 +219,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
             <Dropdown
             renderAccessory={()=> <View style={{}}>
@@ -186,6 +229,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
           </View>
         </View>
@@ -201,6 +246,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
             <Dropdown
             renderAccessory={()=> <View style={{}}>
@@ -209,6 +256,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
           </View>
         </View>
@@ -223,6 +272,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
             <Dropdown
             renderAccessory={()=> <View style={{}}>
@@ -231,6 +282,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
           </View>
         </View>
@@ -245,6 +298,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
             <Dropdown
             renderAccessory={()=> <View style={{}}>
@@ -253,6 +308,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
           </View>
         </View>
@@ -267,6 +324,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
             <Dropdown
             renderAccessory={()=> <View style={{}}>
@@ -275,6 +334,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
           </View>
         </View>
@@ -289,6 +350,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50}}
               label='Od'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
             <Dropdown
             renderAccessory={()=> <View style={{}}>
@@ -297,6 +360,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
           </View>
         </View>
@@ -311,6 +376,8 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Od'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
             <Dropdown
             renderAccessory={()=> <View style={{}}>
@@ -319,19 +386,17 @@ class AddObject extends Component {
               containerStyle={{ width: Dimensions.get('screen').width / 2 - 50 }}
               label='Do'
               data={time}
+              dropdownPosition={-5}
+              itemPadding={5}
             />
           </View>
         </View>
         <View
           style={{
             marginTop: 36,
-            borderBottomColor: '#D1D3D4',
-            borderBottomWidth: StyleSheet.hairlineWidth,
+        
           }}
         />
-        
-     
-
         <CheckBox title="Prihvaćam opće uvjete i slažem se sa svim pravilima"textStyle={{fontFamily: fonts.primaryLight,fontSize:16,color:"rgba(63, 73, 104, 0.8)"}} containerStyle={{ paddingLeft: 16, paddingRight: 16, backgroundColor: "#ffffff", borderWidth: 0, marginLeft: 0 }} 
         checked={this.state.checkUslovi} onPress={()=> { this.setState({checkUslovi: !this.state.checkUslovi}) }}/>
         <View style={{ marginLeft: 16, marginTop: 16, marginBottom: 46 }}>

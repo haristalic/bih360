@@ -37,7 +37,9 @@ class VirtualScreen extends Component {
         ? "#1fdc37"
         : "#F6697A";
     return (<View style={{flex:1}}>
-      {(location.url360 && location.url360.length > 0)?( <View style={{flex:1}}>
+      {(location.url360 && location.url360.length > 0)?( <WebView
+        source={{ uri: item.url360 }}
+      />):( <View style={{flex:1}}>
         <View
            style={{ flexDirection: "row", justifyContent: "space-between" , marginLeft: 20,
          }}
@@ -83,9 +85,7 @@ class VirtualScreen extends Component {
    justifyContent: 'center',flex:1}}>
          <Image source={require('../../../assets/empty-box-img.png')} style={{ width:258,height:173,marginBottom:40}} />  
          <Text style={{fontSize:20,lineHeight:35, color:'#3f4968',  fontFamily: fonts.primaryMedium,}}>Izabrana rubrika je{"\n"} trenutno prazna</Text>   
-       </View></View>):( <WebView
-        source={{ uri: item.url360 }}
-      />)}
+       </View></View>)}
      
      </View>
     );

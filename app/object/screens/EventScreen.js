@@ -23,7 +23,7 @@ import HTML from 'react-native-render-html';
 
 import GridRow from '../../home/GridRow'
 import moment from 'moment';
-import { Feather } from '@expo/vector-icons'; 
+import { Feather,FontAwesome5 } from '@expo/vector-icons'; 
 
 
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
@@ -38,7 +38,6 @@ class EventScreen extends Component {
     if (day_hours) {
 
       const moment_format = moment(day_hours.from).isValid() ? '' : 'HH:mm';
-
       const now = moment().minutes() + moment().hours() * 60;
       const opening_hours = moment(day_hours.from, moment_format).minutes() + moment(day_hours.from, moment_format).hours() * 60;
       const closing_hours = moment(day_hours.to, moment_format).minutes() + moment(day_hours.to, moment_format).hours() * 60;
@@ -48,8 +47,10 @@ class EventScreen extends Component {
     }
   }
   render() {
+    console.log("------------------------------------");
     const item = this.props.screenProps.state.params;
-    const location = item;
+    const location = item;   
+
     const current_day = moment().format('ddd');
     const current_day_hours = item ? item.working_hours ? item.working_hours[current_day] : {} : {};
     const copy = [];
@@ -60,7 +61,7 @@ class EventScreen extends Component {
         element.location = location;
         copy.push(element);
       });
-    }
+    } console.log(copy);
     const groupedData = GridRow.groupByRows(copy, 2);
     const groupedDataFeatured = GridRow.groupByRows(copyFeatured, 2);
     const getBackgroundColor =
@@ -115,7 +116,7 @@ class EventScreen extends Component {
               keyExtractor={item =>
                 item.id
               }
-              style={{ backgroundColor: "#ffffff", display: "flex", flexDirection: "row" }}
+              style={{ backgroundColor: "#ffffff", display: "flex", flexDirection: "row",marginLeft: 20,marginRight:20 }}
               data={copy}
               renderItem={this.renderFeatured}
             ></FlatList>
@@ -139,7 +140,7 @@ class EventScreen extends Component {
         <View style={{ borderRadius: 4, overflow: 'hidden' }}>
           <View style={{ borderRadius: 8, overflow: 'hidden' }}>
             <ImageBackground style={styles.featuredImage} source={{ uri: item.images.length > 0 ? item.images[0].resized_image_url : "" }} >
-            <View
+          {item.type?(<View
               style={{
                 position: "absolute",bottom: 5,left: 5,backgroundColor: "#ffffff",
                 borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center" ,   }}
@@ -148,8 +149,8 @@ class EventScreen extends Component {
                 style={{
                   color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",padding:6 
                 }}
-              >{item.type.name}</Text>
-            </View>
+              >{item.type.title}</Text>
+            </View>):(null)}  
             </ImageBackground>
           </View>
           <View style={styles.itemOneContent}>
@@ -161,13 +162,13 @@ class EventScreen extends Component {
                 {item.title}
               </Text>
               <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
-              <Feather name="map-pin" size={12} color="rgba(63, 73, 104, 0.8)" />
+              <Feather name="map-pin" size={12} color="rgba(63, 73, 104, 0.8)" />                       
                <Text style={styles.itemOnePrice} numberOfLines={1}>
                   {item.location != null ? item.location.address : ""}
                 </Text>
               </View>
               <View style={{ display: "flex", flexDirection: "row", marginTop: 8, height: 18 }}>
-                <MaterialIcons name="date-range" size={12} color="#4A4A4A" />
+              <FontAwesome5 name='calendar-alt' size={12} color="rgba(63, 73, 104, 0.8)" />
                 <Text style={styles.itemOnePrice} numberOfLines={1}>
                   {
                     (item.time && item.time.from) ?
@@ -237,11 +238,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   }, 
   itemFeatured: {
-    width: 350,
+    width: Dimensions.get('window').width,
     height: 260,
     marginTop: 16,
-    marginLeft: 20,
-    marginRight: 20
+ 
   },
   itemOneRow: {
     flexDirection: 'row',
@@ -301,9 +301,8 @@ const styles = StyleSheet.create({
   },
   featuredImage: {
     height: 131,
-    borderRadius: 8
-    //width: Dimensions.get('window').width / 2 - 25,
-  },
+    borderRadius: 8,
+    width: Dimensions.get('window').width },
   objektiTitle: {
     marginLeft: 16,
     marginTop: 16,

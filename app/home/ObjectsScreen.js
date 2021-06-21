@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useRef } from 'react';
 import {
   Text,
   View,
@@ -31,6 +31,8 @@ import GridRow from './GridRow'
 import moment from 'moment';
 
 import { Font } from 'expo-font';
+import _ from "lodash";
+
 
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import {Transition,Transitioning} from 'react-native-reanimated';
@@ -45,14 +47,12 @@ class ObjectsScreen extends Component {
 
     mycity = this.props.screenProps;
     if (mycity && mycity.id) {
-      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: mycity.id, category: "", cityName: mycity.name, refreshing: false,visible:false,page:1,
-      perPage:2,
-      loadMoreVisible:true,    displayArray:[]
+      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: mycity.id, category: "", cityName: mycity.name, refreshing: false,visible:false,
+      loadMoreVisible:true,    displayArray:[],query:"",    filteredData:[]
     };
     } else {
-      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: "", category: "", cityName: "Svi", refreshing: false,visible:false,page:1,
-      perPage:2,
-      loadMoreVisible:true,     displayArray:[]
+      this.state = { fontLoaded: false, dataSource: [], cities: [], categories: [], city: "", category: "", cityName: "Svi", refreshing: false,visible:false,
+      loadMoreVisible:true,     displayArray:[],cityFocused:false,categoriesFocused:false
     };
     }
     this.state.visibleCategory = false;
@@ -80,6 +80,7 @@ class ObjectsScreen extends Component {
         this.setState({
           isLoading: false,
           dataSource: responseJson,
+          filteredData: responseJson
         }, function () {
 
         });
@@ -171,7 +172,7 @@ class ObjectsScreen extends Component {
       { city: "" + value.id, cityName: "" + value.name, visibleLocation: false }
     ))
     this.loadAllData();
-    this.setState({ dataSource: [] })
+    this.setState({ dataSource: [],filteredData:[] })
     this.prepareForRender();
   }
   onChangeCategoryPress(value) {
@@ -181,7 +182,7 @@ class ObjectsScreen extends Component {
       { category: "" + value.id, categoryName: value.title, visibleCategory: false }
     ))
     this.loadAllData();
-    this.setState({ dataSource: [] })
+    this.setState({ dataSource: [],filteredData:[]  })
     this.prepareForRender();
   }
 
@@ -256,7 +257,21 @@ class ObjectsScreen extends Component {
       this.setNewData()
     })
   }
+  handelSearch = (text) =>{
+   // console.log(text);  
+   let format = text.toLowerCase();  
+   let filteredData = this.state.dataSource.filter(function (item) {
+    return item.title.toLowerCase().includes(format);
+  });
+  this.setState({filteredData: filteredData});
+   
+  }  
+  color = () => {
+   
+   return this.state.cityFocused ? "#fffffff":"#faf"
+  }
   render() {
+
     const ticketItem = ({item}) => {
         
       return (
@@ -328,7 +343,7 @@ class ObjectsScreen extends Component {
             </TouchableOpacity> */}
 <View  style={{flexDirection:'column',marginLeft:10,marginRight:10,marginBottom:20}}>
   <TouchableOpacity onPress={() =>this.ToggleClick() }>
-  <View style={{ marginTop:10,marginBottom: 10,width: 350 ,display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+  <View style={{ marginTop:10,marginBottom: 10,width: Dimensions.get("window").width-40 ,display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
               <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968"}} >
                   Pretraga
                 </Text>        
@@ -342,30 +357,49 @@ class ObjectsScreen extends Component {
    </TouchableOpacity>
   {this.state.show?(
           <View>
-            <TextInput 	style={{width: 350, paddingLeft: 8, paddingRight: 16 }}  placeholder="Pretraga..."/>
+            <TextInput onChangeText={this.handelSearch}	style={{width: Dimensions.get("window").width-50, padding:10,borderWidth:1,borderColor:'#f2f5f9' }}  placeholder="Pretraga..."/>
  <Text  style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Odaberi grad</Text>
   
         <Dropdown
-              containerStyle={{ width: 350 , paddingLeft: 8, paddingRight: 8 }}
-              label='Grad'
-              icon='chevron-down'
+              containerStyle={{backgroundColor:this.state.cityFocused?"#f2f5f9":"#ffffff", borderColor:'#f2f5f9',borderWidth: 1, width: Dimensions.get("window").width-50 , paddingLeft: 8, paddingRight: 8 }}
               data={this.state.cities}
               onChangeText={(value, index, data) => {
                 this.onChangeCityPress(data[index]);
               }}
-              renderAccessory={()=> <View style={{}}>
-              <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+              dropdownOffset={{top: 16, bottom: -8}}
+              itemPadding={10}
+              fontSize={16}
+              textColor={'rgba(63, 73, 104, 0.8)'}
+              inputContainerStyle={{ borderBottomColor: 'transparent' }}
+              pickerStyle={{borderColor:'transparent',borderWidth: 1,width: Dimensions.get("window").width-50,marginLeft: 12, paddingRight: 8  }} 
+               value={this.state.cityName}
+              dropdownPosition={-5} 
+              onFocus={()=> this.setState({cityFocused:true})}
+              onBlur={() => this.setState({cityFocused:false})}
+
+              renderAccessory={()=> <View >
+              <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.75)" />
                     </View>}
             />
   <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Kategorija</Text>
 
             <Dropdown
-              containerStyle={{ width: 350, paddingLeft: 8, paddingRight: 16 }}
-              label='Kategorija'
+              containerStyle={{backgroundColor:this.state.categoriesFocused?"#f2f5f9":"#ffffff", borderColor:'#f2f5f9',borderWidth: 1, width: Dimensions.get("window").width-50 , paddingLeft: 8, paddingRight: 8 }}
               data={this.state.categories}
               onChangeText={(value, index, data) => {
                 this.onChangeCategoryPress(data[index]);
               }}
+              value={"Sve" }
+              dropdownOffset={{top: 16, bottom: -8}}
+              itemPadding={10}
+              fontSize={16}
+              textColor={'rgba(63, 73, 104, 0.8)'}
+              inputContainerStyle={{ borderBottomColor: 'transparent' }}
+              pickerStyle={{borderColor:'transparent',borderWidth: 1,width: Dimensions.get("window").width-50,marginLeft: 12, paddingRight: 8  }} 
+              dropdownPosition={-5} 
+              onFocus={()=> this.setState({categoriesFocused:true})}
+              onBlur={() => this.setState({categoriesFocused:false})}
+
               renderAccessory={()=> <View style={{}}>
  <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
        </View>}
@@ -406,7 +440,7 @@ class ObjectsScreen extends Component {
               item.id
             }
             style={{ backgroundColor: "#ffffff", display: "flex",flexDirection: "column" }}
-            data={copyFeatured}
+            data={this.state.filteredData }
             renderItem={this.renderFeatured}
           ></FlatList>
         </ScrollView>
@@ -469,12 +503,12 @@ class ObjectsScreen extends Component {
             <View style={styles.itemOneContent}>
             
               <Text style={styles.itemOneTitle} >
-                {item.title}
+              {item.title}  
               </Text>
               <View style={{ display: "flex", flexDirection: "row", marginTop: 12,flex:1 }}>
               <Feather name="map-pin" size={16} color="rgba(63, 73, 104, 0.8)" />                       
                 <Text style={styles.itemOnePrice}>
-                  {item.address}
+                  {item.address} 
                 </Text>
               </View>{item.phone===""?(null):( <View style={{ display: "flex", flexDirection: "row", marginTop: 8,flex:1 }}>
               <AntDesign name="phone" size={16}  color="rgba(63, 73, 104, 0.8)" />                
@@ -588,10 +622,7 @@ const styles = StyleSheet.create({
   itemOneTitle: {
     fontFamily: fonts.primaryMedium,
     fontSize: 20,
-    color: "#3f4968",
-    width:600,
-    height: 19,
-  
+    color: "#3f4968",  
   },
   itemOneSubTitle: {
     fontFamily: fonts.primaryLight,
