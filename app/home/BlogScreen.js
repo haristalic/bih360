@@ -126,30 +126,20 @@ class BlogScreen extends Component {
               style={styles.itemTwoImage}
               source={{ uri: item.image.content_url }}
             />
-            <View
+          <View
               style={{
-                position: "absolute",
-                bottom: 10,
-                right: 10,
-                backgroundColor: "#ffffff",
-                width: 89,
-                height: 20,
-                borderRadius: 22,
-                overflow: "hidden",
-                textAlign: "center",
-                alignItems: "center",
-              }}
+                position: "absolute",bottom: 5,right: 5,backgroundColor: "#ffffff",
+                borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center" ,   }}
             >
-              <Text
+                  <Text
                 style={{
-                  color: "#3f4968",
-                  fontSize: 14,
-                  fontFamily: "GTWalsheimProM",
+                  color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",padding:6
                 }}
               >
                 {item.category.title}
               </Text>
             </View>
+
           </View>
           <View style={styles.itemTwoContainer2}>
             <View
@@ -264,6 +254,7 @@ class BlogScreen extends Component {
                   fontSize: 30,
                   color: "#3f4968",
                   marginTop: 10,
+
                 }}
               >
                 Blog i novosti
@@ -308,7 +299,7 @@ class BlogScreen extends Component {
                 display: "flex",
                 flexDirection: "row",
                 backgroundColor: "#fff",
-                marginTop: -6,
+                marginTop: 20,
                 marginBottom: 0,
               }}
             >
@@ -325,7 +316,7 @@ class BlogScreen extends Component {
               </View>
             </TouchableOpacity> */}
               <Dropdown
-              containerStyle={{backgroundColor:this.state.categoriesFocused?"#f2f5f9":"#ffffff", borderColor:'#f2f5f9',borderWidth: 1, width: Dimensions.get("window").width-30 , paddingLeft: 8, paddingRight: 8 }}
+              containerStyle={{backgroundColor:this.state.categoriesFocused?"#f2f5f9":"#ffffff", borderColor:'#f2f5f9',borderWidth: 1, width: Dimensions.get("window").width-33 , paddingLeft: 8, paddingRight: 8 }}
 
                 data={this.state.categories}
                 renderAccessory={()=> <View style={{}}>
@@ -335,13 +326,16 @@ class BlogScreen extends Component {
            fontSize={16}
            textColor={'rgba(63, 73, 104, 0.8)'}
            inputContainerStyle={{ borderBottomColor: 'transparent' }}
-           pickerStyle={{borderColor:'transparent',borderWidth: 1,width: Dimensions.get("window").width-50,marginLeft: 9, paddingRight: 8  }} 
-           dropdownPosition={-4} 
+           pickerStyle={{borderColor:'transparent',borderWidth: 1,width: Dimensions.get("window").width-30,marginLeft: 7, paddingRight: 8  }}
+           dropdownPosition={-4}
            dropdownOffset={{top: 10, bottom: -8}}
            itemPadding={10}
            fontSize={16}
+           animationDuration = {0}
+           itemCount={3}
+           dropdownPosition={-4.35}
            onFocus={()=> this.setState({categoriesFocused:true})}
-           onBlur={() => this.setState({categoriesFocused:false})}          
+           onBlur={() => this.setState({categoriesFocused:false})}
            value="Lifestyle"
                 onChangeText={(value, index, data) => {
                   this.onChangeCategoryPress(data[index]);

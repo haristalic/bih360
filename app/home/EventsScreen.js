@@ -280,7 +280,7 @@ class EventsScreen extends Component {
              </Image>      
              <View
               style={{
-                position: "absolute",bottom: 5,right: 50,backgroundColor: "#ffffff",
+                position: "absolute",bottom: 5,right: 40,backgroundColor: "#ffffff",
                 borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center" ,   }}
             >
               <Text numberOfLines={1}
@@ -378,17 +378,18 @@ const styles = StyleSheet.create({
     //width: Dimensions.get('window').width / 2 - 25,
   },
   featuredImage: {
-    height: 131,
+    height: 131, width:Dimensions.get('window').width,
+
     borderRadius: 8,
+    resizeMode:'stretch'
 
   },
   objektiTitle: {
     marginLeft: 16,
     marginTop: 16,
-    fontFamily: fonts.primaryBold,
-    fontSize: 18,
+    fontFamily: fonts.primaryMedium,
+    fontSize: 30,
     color: "#032B43",
-    height: 24
   },
   pronadjeno: {
     marginLeft: 16,

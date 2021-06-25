@@ -13,10 +13,10 @@ import {
   TouchableOpacity,
   Image,
   Platform,
-  ImageBackground,  SafeAreaView, 
+  ImageBackground,  SafeAreaView,
 
 } from 'react-native';
-import { Feather } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
 
 import { Ionicons, MaterialIcons,AntDesign } from '@expo/vector-icons';
 
@@ -201,10 +201,10 @@ class ObjectsScreen extends Component {
     const copy = [];
     const copyFeatured = [];
     this.state.dataSource.forEach(element => {
-      
+
         copyFeatured.push(element);
-     
-     
+
+
     });
     const groupedData = copy
   ;
@@ -231,7 +231,7 @@ class ObjectsScreen extends Component {
           routeName: 'AddObject',
         });
   }
-  setNewData = () =>{ 
+  setNewData = () =>{
     var tempArray=[]
     if(this.state.cat.length == this.state.displayArray.length){
       this.setState({
@@ -247,7 +247,7 @@ class ObjectsScreen extends Component {
       })
     }
 
-   
+
   }
 
   loadMore(){
@@ -258,42 +258,42 @@ class ObjectsScreen extends Component {
     })
   }
   handelSearch = (text) =>{
-   // console.log(text);  
-   let format = text.toLowerCase();  
+   // console.log(text);
+   let format = text.toLowerCase();
    let filteredData = this.state.dataSource.filter(function (item) {
     return item.title.toLowerCase().includes(format);
   });
   this.setState({filteredData: filteredData});
-   
-  }  
+
+  }
   color = () => {
-   
+
    return this.state.cityFocused ? "#fffffff":"#faf"
   }
   render() {
 
     const ticketItem = ({item}) => {
-        
+
       return (
-       
-      <View style={{height:40,padding:8,backgroundColor:'rgba(63, 73, 104, 0.8)', 
+
+      <View style={{height:40,padding:8,backgroundColor:'rgba(63, 73, 104, 0.8)',
       flex:1,
       maxWidth: Dimensions.get('window').width / 3 - 10, // Width / 3 - (marginLeft and marginRight for the components)
       justifyContent: 'center',
       alignItems:'center',  padding:20,     flexDirection:'row',
       margin:5,
-       borderRadius:22}}> 
+       borderRadius:22}}>
                   {item.icon ==null ?(<View></View>):( <Image
           style={ {
         width: 16,
             height: 14,
            marginRight:2
           }}          source={{uri:item.icon.content_url }}
-        />)}  
+        />)}
               <Text numberOfLines={1} style={{ fontSize: 14, color: "#ffffff",textAlign:'center' }}>{item.title}</Text>
            </View>
-       
-        
+
+
       );
   };
     if (this.state.isLoading) {
@@ -303,19 +303,19 @@ class ObjectsScreen extends Component {
         </View>
       )
     }
-  
+
     const data = this.state.el1;
     const copyFeatured = this.state.el2;
     const groupedData = this.state.el3;
     const cats = this.state.el4;
-   
+
 
     if (!this.state.fontLoaded) {
       return <View />
     }
     return (<View style={{flex:1}}>
- 
-      <ScrollView backgroundColor="#ffffff" showsVerticalScrollIndicator={false}style={{flex:1}}
+
+      <ScrollView backgroundColor="#ffffff"  showsVerticalScrollIndicator={false}style={{flex:1}}
         refreshControl={
           <RefreshControl
             colors={["#0C8BB2", "#0C8BB2", "#0C8BB2"]}
@@ -323,11 +323,11 @@ class ObjectsScreen extends Component {
             onRefresh={this._onRefresh}
           />
         }
-      >      
-    
+      >
+
         <View style={styles.cardContainer}>
-      
-      
+
+
           <View style={{ display: "flex", flexDirection: "row", width: Dimensions.get('window').width, backgroundColor: "#fff", marginTop:-16, marginBottom:-16 }}>
             {/* <TouchableOpacity onPress={() => {
               this.setState({ visibleLocation: true });
@@ -346,22 +346,22 @@ class ObjectsScreen extends Component {
   <View style={{ marginTop:10,marginBottom: 10,width: Dimensions.get("window").width-40 ,display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
               <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968"}} >
                   Pretraga
-                </Text>        
-                
+                </Text>
+
                 {this.state.show?(<AntDesign style={{justifyContent: "flex-end"}} name="up" size={20}  color="rgba(63, 73, 104, 0.8)" /> ):(
-                  <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" /> 
-                ) }   
-                                
+                  <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
+                ) }
+
               </View>
-                
+
    </TouchableOpacity>
   {this.state.show?(
           <View>
             <TextInput onChangeText={this.handelSearch}	style={{width: Dimensions.get("window").width-50, padding:10,borderWidth:1,borderColor:'#f2f5f9' }}  placeholder="Pretraga..."/>
  <Text  style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Odaberi grad</Text>
-  
+
         <Dropdown
-              containerStyle={{backgroundColor:this.state.cityFocused?"#f2f5f9":"#ffffff", borderColor:'#f2f5f9',borderWidth: 1, width: Dimensions.get("window").width-50 , paddingLeft: 8, paddingRight: 8 }}
+              containerStyle={{backgroundColor:this.state.cityFocused?"#f2f5f9":"#ffffff", borderColor:'#f2f5f9',borderWidth: 1, width: Dimensions.get("window").width-40 , paddingLeft: 8, paddingRight: 8 }}
               data={this.state.cities}
               onChangeText={(value, index, data) => {
                 this.onChangeCityPress(data[index]);
@@ -371,12 +371,13 @@ class ObjectsScreen extends Component {
               fontSize={16}
               textColor={'rgba(63, 73, 104, 0.8)'}
               inputContainerStyle={{ borderBottomColor: 'transparent' }}
-              pickerStyle={{borderColor:'transparent',borderWidth: 1,width: Dimensions.get("window").width-50,marginLeft: 12, paddingRight: 8  }} 
+              pickerStyle={{borderColor:'transparent',borderWidth: 1,width: Dimensions.get("window").width-40.5,marginLeft: 12, paddingRight: 8  }}
                value={this.state.cityName}
-              dropdownPosition={-5} 
               onFocus={()=> this.setState({cityFocused:true})}
               onBlur={() => this.setState({cityFocused:false})}
-
+              dropdownPosition={-5.75}
+              animationDuration = {0}
+              itemCount={4.4}
               renderAccessory={()=> <View >
               <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.75)" />
                     </View>}
@@ -384,7 +385,7 @@ class ObjectsScreen extends Component {
   <Text style={{fontFamily: "GTWalsheimProM",fontSize:20,color:"#3f4968",marginTop:10}}>Kategorija</Text>
 
             <Dropdown
-              containerStyle={{backgroundColor:this.state.categoriesFocused?"#f2f5f9":"#ffffff", borderColor:'#f2f5f9',borderWidth: 1, width: Dimensions.get("window").width-50 , paddingLeft: 8, paddingRight: 8 }}
+              containerStyle={{backgroundColor:this.state.categoriesFocused?"#f2f5f9":"#ffffff", borderColor:'#f2f5f9',borderWidth: 1, width: Dimensions.get("window").width-40 , paddingLeft: 8, paddingRight: 8 }}
               data={this.state.categories}
               onChangeText={(value, index, data) => {
                 this.onChangeCategoryPress(data[index]);
@@ -395,16 +396,17 @@ class ObjectsScreen extends Component {
               fontSize={16}
               textColor={'rgba(63, 73, 104, 0.8)'}
               inputContainerStyle={{ borderBottomColor: 'transparent' }}
-              pickerStyle={{borderColor:'transparent',borderWidth: 1,width: Dimensions.get("window").width-50,marginLeft: 12, paddingRight: 8  }} 
-              dropdownPosition={-5} 
+              pickerStyle={{borderColor:'transparent',borderWidth: 1,width: Dimensions.get("window").width-40.5,marginLeft: 12, paddingRight: 8  }}
               onFocus={()=> this.setState({categoriesFocused:true})}
               onBlur={() => this.setState({categoriesFocused:false})}
-
+              dropdownPosition={-5.75}
+              animationDuration = {0}
+              itemCount={4.4}
               renderAccessory={()=> <View style={{}}>
  <AntDesign style={{justifyContent: "flex-end"}} name="down" size={20}  color="rgba(63, 73, 104, 0.8)" />
        </View>}
             />
-          
+
 
           </View>
 
@@ -492,7 +494,7 @@ class ObjectsScreen extends Component {
             >
               <Text numberOfLines={1}
                 style={{
-                  color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",padding:6 
+                  color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",padding:6
                 }}
               >{item.categories.length > 0 ? item.categories[0].title : ""}</Text>
             </View>
@@ -501,24 +503,24 @@ class ObjectsScreen extends Component {
 
             </View>
             <View style={styles.itemOneContent}>
-            
+
               <Text style={styles.itemOneTitle} >
-              {item.title}  
+              {item.title}
               </Text>
               <View style={{ display: "flex", flexDirection: "row", marginTop: 12,flex:1 }}>
-              <Feather name="map-pin" size={16} color="rgba(63, 73, 104, 0.8)" />                       
+              <Feather name="map-pin" size={12} color="rgba(63, 73, 104, 0.8)" />
                 <Text style={styles.itemOnePrice}>
-                  {item.address} 
+                  {item.address}
                 </Text>
               </View>{item.phone===""?(null):( <View style={{ display: "flex", flexDirection: "row", marginTop: 8,flex:1 }}>
-              <AntDesign name="phone" size={16}  color="rgba(63, 73, 104, 0.8)" />                
+              <AntDesign name="phone" size={12}  color="rgba(63, 73, 104, 0.8)" />
               <Text style={styles.itemOnePrice}>
                   {item.phone}
                 </Text>
               </View>)}
-             
+
               <View style={{ display: "flex", flexDirection: "row", marginTop: 8,flex:1 }}>
-              <Ionicons name="time-outline" size={16} color="rgba(63, 73, 104, 0.8)" />               
+              <Ionicons name="time-outline" size={12} color="rgba(63, 73, 104, 0.8)" />
                <Text style={styles.itemOnePrice} numberOfLines={1}>
                   {current_day_hours && (current_day_hours.from || current_day_hours.to) ?
                     ((moment(current_day_hours.from).isValid() ? moment(current_day_hours.from).format('HH:mm') : current_day_hours.from) + " - " +
@@ -539,8 +541,8 @@ class ObjectsScreen extends Component {
 const styles = StyleSheet.create({
   itemFeatured: {
     width: Dimensions.get('window').width,
-    marginLeft: 8,
-    marginRight: 8,
+    marginLeft: 16,
+    marginRight: 16,
     marginBottom:20
   },
   itemOneRow: {
@@ -605,7 +607,7 @@ const styles = StyleSheet.create({
   objektiTitle: {
     marginLeft: 16,
     marginTop: 16,
-    marginBottom:10,
+    marginBottom:15,
     fontFamily: fonts.primaryMedium,
     fontSize: 30,
     color: "#032B43",
@@ -622,7 +624,7 @@ const styles = StyleSheet.create({
   itemOneTitle: {
     fontFamily: fonts.primaryMedium,
     fontSize: 20,
-    color: "#3f4968",  
+    color: "#3f4968",
   },
   itemOneSubTitle: {
     fontFamily: fonts.primaryLight,
@@ -630,12 +632,12 @@ const styles = StyleSheet.create({
     color: '#4A4A4A',
     marginVertical: 3,
     height: 18,
-  
+
   },
   itemOnePrice: {
     fontFamily: fonts.primaryLight,
-    fontSize: 13,
-    marginLeft: 12,
+    fontSize: 12,
+    marginLeft: 5,
     color:"rgba(63, 73, 104, 0.8)",
     width: 0,
         flexGrow: 1,

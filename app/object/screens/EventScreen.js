@@ -69,9 +69,9 @@ class EventScreen extends Component {
     ? "#1fdc37"
     : "#F6697A";
     return ( 
-      <View style={{flex:1}}>
+      <View style={{flex:1,marginLeft:16,marginRight:16}}>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" , marginLeft: 20,
+            style={{ flexDirection: "row", justifyContent: "space-between" ,
           }}
           >
             {/**comentar */}
@@ -116,7 +116,7 @@ class EventScreen extends Component {
               keyExtractor={item =>
                 item.id
               }
-              style={{ backgroundColor: "#ffffff", display: "flex", flexDirection: "row",marginLeft: 20,marginRight:20 }}
+              style={{ backgroundColor: "#ffffff", }}
               data={copy}
               renderItem={this.renderFeatured}
             ></FlatList>
@@ -137,21 +137,11 @@ class EventScreen extends Component {
     <View backgroundColor="#ffffff"
       style={styles.itemFeatured}>
       <View>
-        <View style={{ borderRadius: 4, overflow: 'hidden' }}>
-          <View style={{ borderRadius: 8, overflow: 'hidden' }}>
-            <ImageBackground style={styles.featuredImage} source={{ uri: item.images.length > 0 ? item.images[0].resized_image_url : "" }} >
-          {item.type?(<View
-              style={{
-                position: "absolute",bottom: 5,left: 5,backgroundColor: "#ffffff",
-                borderRadius: 22 ,flex:1,justifyContent: "center",alignItems: "center" ,   }}
-            >
-              <Text numberOfLines={1}
-                style={{
-                  color: "#3f4968",fontSize: 14,fontFamily: "GTWalsheimProM",padding:6 
-                }}
-              >{item.type.title}</Text>
-            </View>):(null)}  
-            </ImageBackground>
+        <View style={{ borderRadius: 4,  width:Dimensions.get('window').width, }}>
+          <View style={{ borderRadius: 8,  width:Dimensions.get('window').width, }}>
+            <Image style={styles.featuredImage} source={{ uri: item.images.length > 0 ? item.images[0].resized_image_url : "" }} >
+    
+            </Image>
           </View>
           <View style={styles.itemOneContent}>
               <Text
@@ -238,9 +228,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   }, 
   itemFeatured: {
-    width: Dimensions.get('window').width,
-    height: 260,
-    marginTop: 16,
+    marginBottom: 20,
+    borderRadius:8 
  
   },
   itemOneRow: {
@@ -300,9 +289,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   featuredImage: {
-    height: 131,
-    borderRadius: 8,
-    width: Dimensions.get('window').width },
+    height: 131, 
+    width:Dimensions.get('window').width,
+    borderRadius: 6,
+
+    resizeMode:'stretch' },
   objektiTitle: {
     marginLeft: 16,
     marginTop: 16,
